@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source ~/scripts/bash/bash_init_for_git.sh
+source bash_init_for_git.sh
 
 echo ==================================================================================================================

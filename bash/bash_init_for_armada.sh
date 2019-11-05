@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/scripts/bash/bash_init_for_git.sh
+source bash_init_for_git.sh
 
 alias p8='cd $ROOT/euclid/euclid/tests/long_tests; envp; TEST=true python -m unittest test_pep8.Pep8Test.test_pep8_conformance'
 alias p8

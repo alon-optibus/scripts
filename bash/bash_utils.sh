@@ -3,6 +3,7 @@
 ########################################################################################################################
 
 source local_bash_utils.sh
+# export HOME, ROOT, SCRIPTS, DATA_DIR, ARCHIVE_DIR
 
 export py2_scripts=$SCRIPTS/py2
 export py2_tools=$py3_scripts
@@ -98,8 +99,6 @@ env3(){
 	
 	source $HOME/anaconda3/bin/activate
 }
-
-#alias read-log='envpy3; ipython -i $py3_tools/read_log.py'
 
 alias sagi='sudo apt-get install'
 alias sedit='sudo gedit'
