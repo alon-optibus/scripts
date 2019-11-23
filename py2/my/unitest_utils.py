@@ -1,3 +1,5 @@
+from __future__ import print_function, division
+from my.utils import get_attr
 
 # <editor-fold desc="dummy objects">
 
@@ -24,7 +26,7 @@ class AnyDummy (object):
         return new
 
     def __repr__(self):
-        return 'Dummy({})'.format(getattr_repr(self, "name"))
+        return 'Dummy({})'.format(get_attr(self, "name", f=repr))
 
     pass
 

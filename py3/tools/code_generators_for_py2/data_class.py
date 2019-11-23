@@ -4,32 +4,13 @@ class_name = 'VipScenario'
 
 class_bases = (object,)
 
-attrs = [
-    'description',
-    'algorithm_data_set',
-    'data_set',
-    'trips',
-    'vehicle_types',
-    'depots',
-    'trip_parameters',
-    'vehicle_type_parameters',
-    'depot_parameters',
-    'all_vehicle_parameters',
-    'scheduler',
-    'vehicles',
-    'locked_trip_ids',
-    'expected_mid_day_depot_parkings',
-    'expected_number_of_rows',
-    'expected_number_of_cols',
-    'expected_number_of_trips',
-    'expected_number_of_vehicle_variations',
-    'expected_number_of_vehicle_active_bounds',
-    'expected_number_of_trips_require_scheduling',
-    'expected_number_of_locked_trips',
-    'expected_number_of_trip_active_bounds',
-    'expected_number_of_trip_groups_with_active_bounds',
-    'expected_number_of_vehicle_groups_with_active_bounds',
-]
+attrs = '''\
+a
+b
+c
+'''.splitlines()
+
+print(attrs)
 
 ########################################################################################################################
 
