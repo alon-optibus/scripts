@@ -5,7 +5,7 @@ from typing import Any, Iterable, Optional, Callable, TypeVar, Type
 
 from toolz import identity
 
-from my.iter_utils import all_iter_eq
+from my.utils.iter_1 import all_iter_eq
 
 T0 = TypeVar('T0')
 

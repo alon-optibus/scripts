@@ -1,4 +1,4 @@
-from my.s3_utils import s3_put_file, s3_key_for_file, s3_has, s3_del
+from my.utils.s3_1 import s3_put_file, s3_key_for_file, s3_has, s3_del
 from sys import argv
 from pathlib import Path
 

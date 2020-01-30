@@ -1,23 +1,19 @@
 from __future__ import print_function, division
-from my.utils import ReprManager
+from archive.utils import ReprManager
 from euclid.utils.attr_utils import partial_data_class
 
 ########################################################################################################################
 
-class_name = 'VipSolution'
+class_name = 'ScenarioData'
 
 class_bases = (object,)
 
 attrs = (
-        'schedule',
-        'data_set',
-        'scenario',
-        'scheduler',
-        'vehicle_info',
-        'cols',
-        'col_paths',
-        'excluded_trips',
-    )
+    'data_set',
+    'raw_data_set',
+    'schedule',
+    'url',
+)
 
 # attrs = '''\
 # scenario

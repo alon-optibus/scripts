@@ -1,5 +1,5 @@
 from collections import namedtuple
-from my.utils import iter_json_file
+from my.utils.utils_1 import iter_json_file
 from datetime import datetime
 
 

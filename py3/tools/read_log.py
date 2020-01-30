@@ -1,9 +1,8 @@
 #!ipy3
 
 from sys import argv
-from my.logs_utils import *
-
-from my.utils import *
+from my.utils.logs_1 import *
+from my.utils.utils_1 import df_from_nametuples
 
 from pathlib import Path
 

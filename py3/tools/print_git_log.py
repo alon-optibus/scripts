@@ -1,5 +1,5 @@
 import argparse
-from my.git_utils import iter_git_log
+from my.utils.git_1 import iter_git_log
 
 parser = argparse.ArgumentParser(description='Parse and print git log.')
 
