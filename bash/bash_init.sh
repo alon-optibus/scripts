@@ -16,7 +16,9 @@ type_var(){
 
 init_local(){
   if [ -f "~bash_init~" ]
-    then source ./~bash_init~
+  then source ./~bash_init~
+  elif [ -f "__bash_init.sh" ]
+  then source ./__bash_init.sh
   fi
 }
 
