@@ -7,15 +7,12 @@ source $ROOT/.bash_profile
 unalias gd
 unalias hf
 unalias rc
-unalias a
 
 ########################################################################################################################
 
 export m='master'
-export a='alon'
 
 alias m='gco $m'
-alias a='gco $a'
 alias gprb='git_pull_rebase $b'
 
 ########################################################################################################################

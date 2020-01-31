@@ -13,13 +13,19 @@ type_var(){
   echo $1=${!1}
 }
 
-alias init='source ./~bash_init~'
-
-init_if_exists(){
+init_local(){
   if [ -f "~bash_init~" ]
-    then init
+    then source ./~bash_init~
   fi
 }
+
+cdi(){
+  cd "$1" || return
+  init
+}
+
+alias r='cdi $RESEARCH'
+alias a='cdi $ROOT'
 
 ########################################################################################################################
 
@@ -28,7 +34,7 @@ lsb_release -a
 print_break
 
 # run './~bash_init~' if exists:
-init_if_exists
+init_local
 
 # interrupt with 'ctrl+j' instead of 'ctrl+c':
 stty intr ^J
