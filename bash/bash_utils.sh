@@ -3,7 +3,7 @@
 ########################################################################################################################
 
 source local_bash_utils.sh
-# export HOME, ROOT, SCRIPTS, DATA_DIR, WINDOWS_DIR
+# export HOME, ROOT, RESEARCH, SCRIPTS, DATA_DIR, WINDOWS_DIR
 
 export Downloads=~/Downloads
 
