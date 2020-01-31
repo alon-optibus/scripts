@@ -252,8 +252,9 @@ log_to_algo_research_machine() {
     echo $1
 	get_algo_machine_ip $1
 	echo "Enjoy"
-	echo "ssh -oStrictHostKeyChecking=no -i ~/.ssh/optiprod.pem ubuntu@$IP_ADDRESS"
-	ssh -oStrictHostKeyChecking=no -i ~/.ssh/optiprod.pem ubuntu@$IP_ADDRESS
+	cmd="ssh -oStrictHostKeyChecking=no -i ~/.ssh/optiprod.pem -q ubuntu@$IP_ADDRESS"
+	echo $cmd
+	$cmd
 
 }
 

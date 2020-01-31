@@ -13,9 +13,11 @@ type_var(){
   echo $1=${!1}
 }
 
-init(){
+alias init='source ./~bash_init~'
+
+init_if_exists(){
   if [ -f "~bash_init~" ]
-    then source ~bash_init~
+    then init
   fi
 }
 
@@ -26,7 +28,7 @@ lsb_release -a
 print_break
 
 # run './~bash_init~' if exists:
-init
+init_if_exists
 
 # interrupt with 'ctrl+j' instead of 'ctrl+c':
 stty intr ^J
