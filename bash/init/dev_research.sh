@@ -73,4 +73,8 @@ alias gprb
 
 print_break
 
+alias_and_type sevip3 'cdi alon/experiments/sevip/_003'
+
+print_break
+
 ########################################################################################################################

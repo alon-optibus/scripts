@@ -4,7 +4,7 @@ source bash_utils.sh
 
 export PATH="$HOME/dev/envp/bin:$PATH"
 
-export PYTHONPATH="$SCRIPTS/py2:$RESEARCH:$PYTHONPATH"
+export PYTHONPATH="$SCRIPTS/py2:$RESEARCH:$ROOT/euclid/sdk:$PYTHONPATH"
 
 python "$@"
 
