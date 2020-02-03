@@ -1,5 +1,6 @@
 import boto3
 from pathlib import Path
+import os
 
 ########################################################################################################################
 
@@ -9,6 +10,8 @@ s3resource = boto3.resource('s3')
 s3bucket__algo = s3resource.Bucket('algo-research')
 
 DEFAULT_PREFIX_FOR_FILES = 'alon-misc-files'
+
+PATH_HOME = os.getenv('HOME')
 
 ########################################################################################################################
 
@@ -28,7 +31,11 @@ def s3_object_exists(object_):
 
 
 def s3_key_for_file(path):
-    return '{}:{}'.format(DEFAULT_PREFIX_FOR_FILES, Path(path).name)
+    path = Path(path).resolve()
+    if path.is_dir():
+        raise ValueError(f'path is dir: {path}')
+    path = str(path).replace(PATH_HOME, '~')
+    return '{}:{}'.format(DEFAULT_PREFIX_FOR_FILES, path)
 
 
 def s3_has(key, bucket=s3bucket__algo):
@@ -48,3 +55,4 @@ def s3_del(key, bucket=s3bucket__algo):
 
 
 ########################################################################################################################
+
