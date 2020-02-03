@@ -1,19 +1,13 @@
-from my.utils.s3_1 import *
-from sys import argv
+#!/bin/bash
 
 ########################################################################################################################
 
-_, x = argv
+source local_paths.sh
 
-key = s3_key_for_file(x)
-print(f'key={key}: ', end='')
+export PATH="$PY3ENV:$PATH"
 
-try:
-    exists = s3_has(key)
-except:
-    print('?')
-    raise
-else:
-    print(exists)
+export PYTHONPATH="$SCRIPTS/py3:$PYTHONPATH"
+
+python "$@"
 
 ########################################################################################################################

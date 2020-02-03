@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source bash_utils.sh
+source local_paths.sh
 
 export PATH="$HOME/dev/envp/bin:$PATH"
 

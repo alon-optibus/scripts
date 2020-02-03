@@ -1,6 +1,6 @@
 from my.utils.s3_1 import s3_get_file, s3_key_for_file
 from sys import argv
-from pathlib2 import Path
+from pathlib import Path
 
 ########################################################################################################################
 

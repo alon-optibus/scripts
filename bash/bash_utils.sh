@@ -313,6 +313,8 @@ alias sfm='send_file_to_algo_machine'
 
 #####################################################################################################
 
+alias s3has-file='py3 $SCRIPTS/py3/tools/s3/has_file.py'
+
 #s3has(){
 #	python $py2_tools/s3has.py $1
 #}
