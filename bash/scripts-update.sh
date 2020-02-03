@@ -6,6 +6,8 @@ source local_paths.sh
 
 cd $SCRIPTS
 
+echo Update $SCRIPTS:
+
 git fetch origin && git reset --hard origin/master
 
 ########################################################################################################################
