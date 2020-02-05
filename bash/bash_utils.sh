@@ -138,17 +138,6 @@ deactivate_conda(){
 }
 
 
-env3(){
-	
-	if [ -n "$VIRTUAL_ENV" ]; then
-		deactivate
-	fi
-
-	export PYTHONPATH=$py3_scripts
-	
-	source $HOME/anaconda3/bin/activate
-}
-
 sagi(){
   sudo apt-get install "$1"
   apt-cache policy "$1"
