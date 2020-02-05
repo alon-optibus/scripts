@@ -1,10 +1,14 @@
-from my.utils.s3_1 import s3_has
+from my.utils.s3_1 import s3_iter
 from sys import argv
 
 ########################################################################################################################
 
-key,  = argv[1:]
+if len(argv) > 1:
+    prefix,  = argv[1:]
+else:
+    prefix = None
 
-print(s3_has(key=key))
+for x in s3_iter(prefix=prefix):
+    print(x.key)
 
 ########################################################################################################################

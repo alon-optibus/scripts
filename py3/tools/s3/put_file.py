@@ -1,29 +1,15 @@
-from my.utils.s3_1 import s3_put_file, s3_key_for_file, s3_has, s3_del
+from my.utils.s3_1 import put_file_in_s3, s3_mirror_key
 from sys import argv
-from pathlib import Path
 
 ########################################################################################################################
 
 if len(argv) == 2:
-    path = Path(argv[1]).resolve(True)
-    key = s3_key_for_file(path)
+    path = argv[1]
+    key = s3_mirror_key(path)
 
 else:
     key, path = argv[1:]
-    path = Path(path).resolve(True)
 
-if s3_has(key):
-    print(f's3 del "{key}"...')
-    s3_del(key)
-
-    if s3_has(key):
-        print("Faild!")
-        quit()
-
-print(f's3 put file "{path}" in "{key}"...')
-
-s3_put_file(key=key, path=path)
-
-print("Done." if s3_has(key) else "Faild!")
+put_file_in_s3(key=key, path=path)
 
 ########################################################################################################################

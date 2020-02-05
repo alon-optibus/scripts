@@ -1,9 +1,10 @@
-from my.utils.s3_1 import s3_has
+from my.utils.s3_1 import s3_has, s3_mirror_key
 from sys import argv
 
 ########################################################################################################################
 
-key,  = argv[1:]
+path,  = argv[1:]
+key = s3_mirror_key(path)
 
 print(s3_has(key=key))
 

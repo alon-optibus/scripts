@@ -1,19 +1,10 @@
-from my.utils.s3_1 import *
+from my.utils.s3_1 import s3_del
 from sys import argv
 
 ########################################################################################################################
 
-_, x = argv
+key,  = argv[1:]
 
-key = s3_key_for_file(x)
-print(f'key={key}: ', end='')
-
-try:
-    exists = s3_has(key)
-except:
-    print('?')
-    raise
-else:
-    print(exists)
+s3_del(key=key)
 
 ########################################################################################################################

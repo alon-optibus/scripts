@@ -313,31 +313,13 @@ alias sfm='send_file_to_algo_machine'
 
 #####################################################################################################
 
-alias s3has-file='py3 $SCRIPTS/py3/tools/s3/has_file.py'
-
-#s3has(){
-#	python $py2_tools/s3has.py $1
-#}
-#
-#s3has-deault(){
-#	python $py2_tools/s3has_default.py $1
-#}
-#
-#
-#s3del(){
-#	python $py2_tools/s3del.py $1
-#}
-#
-#s3del-deault(){
-#	python $py2_tools/s3del_default.py $1
-#}
-#
-#s3key(){
-#	python $py2_tools/s3key.py $1
-#}
-#
-#alias s3put='python $py2_tools/s3put.py'
-#alias s3get='python $py2_tools/s3get.py'
-#alias s3del='python $py2_tools/s3del.py'
+alias s3_put_file='py3 $SCRIPTS/py3/tools/s3/put_file.py'
+alias s3_get_file='py3 $SCRIPTS/py3/tools/s3/get_file.py'
+alias s3_has_key='py3 $SCRIPTS/py3/tools/s3/has_key.py'
+alias s3_has_mirror='py3 $SCRIPTS/py3/tools/s3/has_mirror.py'
+alias s3_del_key='py3 $SCRIPTS/py3/tools/s3/del_key.py'
+alias s3_del_mirror='py3 $SCRIPTS/py3/tools/s3/del_mirror.py'
+alias s3_list_keys='py3 $SCRIPTS/py3/tools/s3/list_keys.py'
+alias s3_list_mirror='py3 $SCRIPTS/py3/tools/s3/list_mirror.py'
 
 #####################################################################################################
