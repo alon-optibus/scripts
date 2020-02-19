@@ -12,6 +12,7 @@ alias b='gco $b'
 alias k='gitk'
 alias ka='gitk --all'
 alias gl='py3 $py3_tools/print_git_log.py'
+alias wip="git add --all && git commit -a -m 'wip $(nows)'"
 
 cb
 
