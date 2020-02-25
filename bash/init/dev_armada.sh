@@ -7,15 +7,15 @@ source $SCRIPTS/bash/init/git.sh
 
 ########################################################################################################################
 
-alias p8='cd $ROOT/euclid/euclid/tests/long_tests; envp; TEST=true python -m unittest test_pep8.Pep8Test.test_pep8_conformance'
-alias p8m='cd $ROOT/euclid/euclid/tests/long_tests; envp; TEST=true python -m unittest test_pep8.Pep8Test.test_pep8_conformance_modified_only'
+alias p8='envp; TEST=true py2 -m unittest euclid.tests.long_tests.utils.test_pep8.Pep8Test.test_pep8_conformance'
+alias p8m='envp; TEST=true py2 -m unittest euclid.tests.long_tests.utils.test_pep8.Pep8Test.test_pep8_conformance_modified_only'
 
 alias m2d='gd; gm $b'
 alias gprb='git_pull_rebase $b'
 
-#gbji(){
-#  gb jenkins-ignore--$1
-#}
+export d='develop'
+
+alias d='gco $d'
 
 
 ########################################################################################################################

@@ -2,7 +2,6 @@
 
 EDITOR=gedit
 
-alias ww='piw; wip'
 alias s='git status'
 alias p='git push'
 alias pf='git push -f'
@@ -29,7 +28,6 @@ gl
 print_break
 
 echo "[aliases]"
-alias ww
 alias s
 alias p
 alias pf
