@@ -80,14 +80,18 @@ unzip_remove(){
 
 ########################################################################################################################
 
-zipr(){
-	if [ -d "$1" ]
-	then zip -r "$1.zip" "$1"
-	elif [ -f "$1" ]
-	then zip "$1.zip" "$1"
-	else echo "$1" not found.
-	fi
-}
+alias zipr='py3 $SCRIPTS/py3/tools/zipr.py'
+# zip file or directory:
+#   zipr "dir/name"                    : write to "dir/name.zip"
+#   zipr "dir/name" "dst_name"         : write to "dir/dst_name.zip"
+#   zipr "dir/name" "dst_dir"          : write to "dst_dir/name.zip"
+#   zipr "dir/name" "dst_dir/dst_name" : write to "dst_dir/dst_name.zip"
+#   {name} in `dst_name` replaced with `name`.
+#   {stem} in `dst_name` replaced with `name` without suffix.
+#   {time} in `dst_name` replaced with time-stamp (%Y-%m-%d_%H-%M-%S-%f).
+#
+#  If done successfully, the last line to be printed will be the path of the created zip file.
+#  Otherwise, the last line to be printed will be empty.
 
 
 arc(){
