@@ -1,5 +1,7 @@
+import os
 from collections import namedtuple
 from datetime import datetime
+from pathlib import Path
 
 GitLogCommit = namedtuple(
     'Commit',
@@ -15,8 +17,6 @@ GitLogCommit = namedtuple(
 
 
 def iter_git_log(path='', n=None):
-    import os
-    from pathlib import Path
 
     cmd = 'git log' if n is None else f'git log -n {n}'
 
@@ -73,3 +73,24 @@ def iter_git_log(path='', n=None):
             desc=desc,
             author_mail=author_mail,
         )
+
+
+def iter_git_branch_by_date(path=None, n=None):
+
+    cmd = "git for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'"
+
+    if path:
+        cmd = f'cd {path}; ' + cmd
+
+    if n:
+        cmd = cmd + f' | head -n {n}'
+
+    raw: str = os.popen(cmd).read()
+
+    for line in raw.splitlines(False):
+        yield line.split(' ', 1)
+
+    pass
+
+
+########################################################################################################################
