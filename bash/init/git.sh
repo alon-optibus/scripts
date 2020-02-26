@@ -14,25 +14,6 @@ alias wip="git add --all && git commit -a -m 'wip $(nows)'"
 # list git branches by last commit date:
 alias bb='py3 $SCRIPTS/py3/tools/git/branch_list_by_date.py'
 
-bbh(){
-  # show n last committed branches
-  if [ -z "$1" ]; then
-		bb | head
-	else
-		bb | head -n $1
-	fi
-}
-
-
-bbt(){
-  # show n oldest committed branches
-  if [ -z "$1" ]; then
-		bb | tail
-	else
-		bb | tail -n $1
-	fi
-}
-
 
 b(){
   if [ -z "$1" ]; then
@@ -60,18 +41,15 @@ gl
 
 print_break
 
-echo "[aliases]"
+echo "[bush commands]"
 alias s
 alias p
 alias pf
-alias lb
 alias cb
-alias b
 alias k
 alias ka
-alias gl
-
-echo "bb [n]: list n git branches by last commit date. (without n: list all)"
-echo "gcoi [i]: select the i'th branch by last commit date. (without i: list 10 branches by last commit date)"
+echo "alias gl: print git log"
+echo "bb [n=10]: list n git branches by last commit date. (if n==0: list all)"
+echo "b [i]: check-out to the i'th branch by last commit date. (without i: check-out to \$b)"
 
 ########################################################################################################################
