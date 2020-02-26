@@ -16,6 +16,10 @@ GitLogCommit = namedtuple(
 )
 
 
+def get_current_git_branch():
+    return os.popen('git rev-parse --abbrev-ref HEAD').read().strip()
+
+
 def iter_git_log(path='', n=None):
 
     cmd = 'git log' if n is None else f'git log -n {n}'
@@ -77,18 +81,26 @@ def iter_git_log(path='', n=None):
 
 def iter_git_branch_by_date(path=None, n=None):
 
-    cmd = "git for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'"
-
-    if path:
-        cmd = f'cd {path}; ' + cmd
+    cmd_parts = [
+        "git for-each-ref",
+        "--sort=-committerdate refs/heads/ --format='%(committerdate:raw)|%(authorname)|%(refname:short)'"
+    ]
 
     if n:
-        cmd = cmd + f' | head -n {n}'
+        cmd_parts.insert(1, f'--count={n}')
+
+    if path:
+        cmd_parts.insert(0, f'cd {path};')
+
+    cmd = ' '.join(cmd_parts)
 
     raw: str = os.popen(cmd).read()
 
     for line in raw.splitlines(False):
-        yield line.split(' ', 1)
+        raw_date, author, refname = line.split('|', 2)
+        timestamp_str, _ = raw_date.split(' ', 1)
+        date = datetime.fromtimestamp(int(timestamp_str))
+        yield date, author, refname
 
     pass
 

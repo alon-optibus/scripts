@@ -4,21 +4,15 @@ from my.utils.git_1 import iter_git_branch_by_date
 
 ########################################################################################################################
 
-if len(argv) == 1:
-    for i, (date, name) in enumerate(iter_git_branch_by_date(n=10)):
-        print(f'{date} [{i:3}] {name}')
+i = int(argv[1])
 
-else:
+name = ''
 
-    i = int(argv[1])
+for date, author, name in iter_git_branch_by_date(n=i+1):
+    pass
 
-    name = ''
-
-    for date, name in iter_git_branch_by_date(n=i+1):
-        pass
-
-    if name:
-        cmd = f'git checkout {name}'
-        os.system(cmd)
+if name:
+    cmd = f'git checkout {name}'
+    os.system(cmd)
 
 ########################################################################################################################
