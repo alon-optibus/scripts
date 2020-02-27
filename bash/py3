@@ -6,7 +6,7 @@ source local_paths.sh
 
 export PATH="$PY3ENV:$PATH"
 
-export PYTHONPATH="$SCRIPTS/py3:$PYTHONPATH"
+export PYTHONPATH="$LOCAL/py3:$SCRIPTS/py3:$PYTHONPATH"
 
 python "$@"
 

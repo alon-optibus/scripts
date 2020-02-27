@@ -238,7 +238,7 @@ get_algo_machine_ip(){
 get_file_from_algo_machine(){
     get_algo_machine_ip $1
     if [ -z "$3" ]; then
-        TARGET_FOLDER='~'
+        TARGET_FOLDER='/data/'
     else
         TARGET_FOLDER=$3
     fi
@@ -250,7 +250,7 @@ get_file_from_algo_machine(){
 send_file_to_algo_machine(){
     get_algo_machine_ip $1
     if [ -z "$3" ]; then
-        TARGET_FOLDER='/home/ubuntu/'
+        TARGET_FOLDER='/data/'
     else
         TARGET_FOLDER=$3
     fi
@@ -320,7 +320,17 @@ alias mam='mount_algo_machine'
 alias gfm='get_file_from_algo_machine'
 alias sfm='send_file_to_algo_machine'
 
+alias am='less -FX "$SCRIPTS/info/am.txt"'
+
+alias am_ll='py3 $SCRIPTS/py3/tools/algo_machines/list_files.py'
+alias am_get='py3 $SCRIPTS/py3/tools/algo_machines/get_file_from_am.py'
+alias am_put='py3 $SCRIPTS/py3/tools/algo_machines/put_file_in_am.py'
+alias am_del='py3 $SCRIPTS/py3/tools/algo_machines/del_file_in_am.py'
+alias am_cat='py3 $SCRIPTS/py3/tools/algo_machines/stream_file_from_am.py'
+
 #####################################################################################################
+
+alias s3='less -FX "$SCRIPTS/info/s3.txt"'
 
 alias aws_login='saml2aws login --session-duration=32400'
 
@@ -342,7 +352,5 @@ s3_stream(){
 s3_stream_mirror(){
   s3_stream "$(s3_get_mirror_key $1)"
 }
-
-alias s3='less -FX "$SCRIPTS/info/s3.txt"'
 
 #####################################################################################################
