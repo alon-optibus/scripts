@@ -333,6 +333,15 @@ alias s3_del_mirror='py3 $SCRIPTS/py3/tools/s3/del_mirror.py'
 alias s3_list_keys='py3 $SCRIPTS/py3/tools/s3/list_keys.py'
 alias s3_list_mirror='py3 $SCRIPTS/py3/tools/s3/list_mirror.py'
 alias s3_command_for_downlad='py3 $SCRIPTS/py3/tools/s3/get_download_command.py'
+alias s3_get_mirror_key='py3 $SCRIPTS/py3/tools/s3/get_mirror_key.py'
+
+s3_stream(){
+  vaws s3 cp "s3://algo-research/$1" -
+}
+
+s3_stream_mirror(){
+  s3_stream "$(s3_get_mirror_key $1)"
+}
 
 alias s3='less -FX "$SCRIPTS/info/s3.txt"'
 

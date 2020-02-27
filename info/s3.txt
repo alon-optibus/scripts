@@ -21,7 +21,13 @@ s3_list_keys "prefix"    : list all keys in `algo-research` that starts with `pr
 s3_list_mirror           : list all keys in `algo-research` that starts with `alon-mirror:`.
 s3_list_mirror "prefix"  : list all keys in `algo-research` that starts with `alon-mirror:prefix`.
 
+s3_get_mirror_key "file" : print the mirror-key of `file`.
+
+s3_stream "key"          : stream the content of `algo-research["key"]`.
+s3_stream_mirror "file"  : stream the content of `algo-research["alon-mirror:file"]`.
+
 s3_command_for_downlad "file"       : print command to download from `algo-research["alon-mirror:file"]` to file without scripts.
 s3_command_for_downlad "key" "file" : print command to download from `algo-research["key"]` to file without scripts.
+
 _______________________________________________________________________________________________
 
