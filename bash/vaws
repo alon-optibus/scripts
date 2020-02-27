@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+source local_paths.sh
+
+export PATH="$HOME/dev/venv/bin:$PATH"
+
+aws "$@"

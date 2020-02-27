@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source local_paths.sh
+
+export PATH="$HOME/dev/venv/bin:$PATH"
+
+export PYTHONPATH="$SCRIPTS/py2:$RESEARCH:$ROOT/euclid/sdk:$PYTHONPATH"
+
+ipython -i "$@"
+
+########################################################################################################################
