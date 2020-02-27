@@ -6,6 +6,6 @@ from sys import argv
 path,  = argv[1:]
 key = s3_mirror_key(path)
 
-print(s3_has(key=key))
+print(int(s3_has(key=key)))
 
 ########################################################################################################################

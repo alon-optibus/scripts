@@ -328,4 +328,6 @@ alias s3_list_keys='py3 $SCRIPTS/py3/tools/s3/list_keys.py'
 alias s3_list_mirror='py3 $SCRIPTS/py3/tools/s3/list_mirror.py'
 alias s3_command_for_downlad='py3 $SCRIPTS/py3/tools/s3/get_download_command.py'
 
+alias s3='less -FX "$SCRIPTS/info/s3.txt"'
+
 #####################################################################################################
