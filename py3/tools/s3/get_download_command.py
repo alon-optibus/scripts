@@ -13,6 +13,6 @@ else:
 
 path = Path(path).resolve()
 
-print(f'a; aws_login; aws s3 cp "s3://algo-research/{key}" "{path}"')
+print(f'venv; aws_login; aws s3 cp "s3://algo-research/{key}" "{path}"')
 
 ########################################################################################################################

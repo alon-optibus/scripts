@@ -316,6 +316,8 @@ alias sfm='send_file_to_algo_machine'
 
 #####################################################################################################
 
+alias aws_login='saml2aws login --session-duration=32400'
+
 alias s3_put_file='py3 $SCRIPTS/py3/tools/s3/put_file.py'
 alias s3_get_file='py3 $SCRIPTS/py3/tools/s3/get_file.py'
 alias s3_has_key='py3 $SCRIPTS/py3/tools/s3/has_key.py'
