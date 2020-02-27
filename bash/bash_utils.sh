@@ -324,5 +324,6 @@ alias s3_del_key='py3 $SCRIPTS/py3/tools/s3/del_key.py'
 alias s3_del_mirror='py3 $SCRIPTS/py3/tools/s3/del_mirror.py'
 alias s3_list_keys='py3 $SCRIPTS/py3/tools/s3/list_keys.py'
 alias s3_list_mirror='py3 $SCRIPTS/py3/tools/s3/list_mirror.py'
+alias s3_command_for_downlad='py3 $SCRIPTS/py3/tools/s3/get_download_command.py'
 
 #####################################################################################################

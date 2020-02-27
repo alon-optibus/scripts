@@ -10,8 +10,6 @@ def aws_login():
     os.system('saml2aws login --session-duration=32400')
 
 
-aws_login()
-
 ########################################################################################################################
 
 S3ClientError = botocore.exceptions.ClientError
@@ -61,10 +59,12 @@ class S3DelError (S3IOError):
 
 
 def s3_has(key, bucket=s3bucket__algo):
+    aws_login()
     return s3_object_exists(bucket.Object(key))
 
 
 def s3_del(key, bucket=s3bucket__algo, log_func=print, validate=True):
+    aws_login()
 
     if log_func is not None:
         log_func(f'del s3["{key}"]')
@@ -78,6 +78,7 @@ def s3_del(key, bucket=s3bucket__algo, log_func=print, validate=True):
 
 
 def put_file_in_s3(key, path, bucket=s3bucket__algo, log_func=print, validate=True):
+    aws_login()
     path = Path(path).resolve(True)
     exists = s3_has(key=key, bucket=bucket)
 
@@ -96,6 +97,7 @@ def put_file_in_s3(key, path, bucket=s3bucket__algo, log_func=print, validate=Tr
 
 
 def get_file_from_s3(key, path, bucket=s3bucket__algo, log_func=print, validate=True):
+    aws_login()
     path = Path(path).resolve()
     parent: Path = path.parent
     exists = path.exists()
@@ -121,6 +123,7 @@ def get_file_from_s3(key, path, bucket=s3bucket__algo, log_func=print, validate=
 
 
 def s3_iter(prefix=None, bucket=s3bucket__algo):
+    aws_login()
     if prefix:
         yield from bucket.objects.filter(Prefix=prefix)
     else:
@@ -128,6 +131,7 @@ def s3_iter(prefix=None, bucket=s3bucket__algo):
 
 
 def s3_clear(prefix, bucket=s3bucket__algo, log_func=print, validate=True):
+    aws_login()
     for x in s3_iter(prefix=prefix, bucket=bucket):
         s3_del(x.key, log_func=log_func, validate=validate)
 
