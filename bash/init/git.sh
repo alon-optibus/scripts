@@ -10,6 +10,7 @@ alias k='gitk'
 alias ka='gitk --all'
 alias gl='py3 $py3_tools/print_git_log.py'
 alias wip="git add --all && git commit -a -m 'wip $(nows)'"
+alias gprb='git_pull_rebase $b'
 
 # list git branches by last commit date:
 alias bb='py3 $SCRIPTS/py3/tools/git/branch_list_by_date.py'
@@ -42,14 +43,18 @@ gl
 print_break
 
 echo "[bush commands]"
-alias s
-alias p
-alias pf
-alias cb
-alias k
-alias ka
-echo "alias gl: print git log"
-echo "bb [n=10]: list n git branches by last commit date. (if n==0: list all)"
-echo "b [i]: check-out to the i'th branch by last commit date. (without i: check-out to \$b)"
+echo 's           : print git status'
+echo 'p           : push'
+echo 'pf          : push force'
+echo 'cb          : set `$b` to current branch'
+echo 'k           : run `gitk`'
+echo 'ka          : run `gitk --all`'
+echo "gl [n=10]   : print n last lines from git log"
+echo "bb [n=10]   : list n git branches by last commit date. (if n==0: list all)"
+echo 'b [i]       : check-out to the i`th branch by last commit date. (without i: check-out to branch $b)'
+echo 'gco "name"  : check-out to branch `name`'
+echo 'gpr "name"  : git_pull_rebase "name"'
+echo 'gprb        : git_pull_rebase "$b"'
+echo 'gb "name"   : create branch `name`'
 
 ########################################################################################################################

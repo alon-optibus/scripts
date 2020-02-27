@@ -13,7 +13,6 @@ unalias rc
 export m='master'
 
 alias m='gco $m'
-alias gprb='git_pull_rebase $b'
 
 ########################################################################################################################
 
@@ -68,8 +67,7 @@ source $SCRIPTS/bash/init/git.sh
 
 echo
 
-alias m
-alias gprb
+echo "m           : check-out to branch master"
 
 print_break
 
