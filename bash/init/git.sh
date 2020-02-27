@@ -25,12 +25,16 @@ b(){
 	fi
 }
 
+export REPO=$(basename `git rev-parse --show-toplevel`)
+
 
 ########################################################################################################################
 
 cb
 
-echo "b = $b"
+echo "REPO = '$REPO'"
+echo
+bb
 
 print_break
 
