@@ -8,7 +8,7 @@ alias pf='git push -f'
 alias cb='b=$(current_branch)'
 alias k='gitk'
 alias ka='gitk --all'
-alias gl='py3 $py3_tools/print_git_log.py'
+alias gl='py3 $py3_tools/git/list_commits.py'
 alias wip="git add --all && git commit -a -m 'wip $(nows)'"
 alias gprb='git_pull_rebase $b'
 
