@@ -2,6 +2,8 @@
 
 EDITOR=gedit
 
+export REPO=$(basename `git rev-parse --show-toplevel`)
+
 alias s='git status'
 alias p='git push'
 alias pf='git push -f'
@@ -11,9 +13,6 @@ alias ka='gitk --all'
 alias gl='py3 $py3_tools/git/list_commits.py'
 alias wip="git add --all && git commit -a -m 'wip $(nows)'"
 alias gprb='git_pull_rebase $b'
-
-# list git branches by last commit date:
-alias bb='py3 $SCRIPTS/py3/tools/git/branch_list_by_date.py'
 
 
 b(){
@@ -25,8 +24,36 @@ b(){
 	fi
 }
 
-export REPO=$(basename `git rev-parse --show-toplevel`)
 
+# list git branches by last commit date:
+bb(){
+
+  if [ -z "$1" ]; then
+    n=10
+  else
+    n=$1
+  fi
+
+  py3 $SCRIPTS/py3/tools/git/branch_list_by_date.py $n
+
+  i=0
+  while IFS= read -r line; do
+      export b$i="$line"
+      let i=i+1
+  done <<< "$(py3 $SCRIPTS/py3/tools/git/branch_name_list_by_date.py $n)"
+
+}
+
+alias b0='gco $b0'
+alias b1='gco $b1'
+alias b2='gco $b2'
+alias b3='gco $b3'
+alias b4='gco $b4'
+alias b5='gco $b5'
+alias b6='gco $b6'
+alias b7='gco $b7'
+alias b8='gco $b8'
+alias b9='gco $b9'
 
 ########################################################################################################################
 
@@ -34,7 +61,7 @@ cb
 
 echo "REPO = '$REPO'"
 echo
-bb
+bb 10
 
 print_break
 
