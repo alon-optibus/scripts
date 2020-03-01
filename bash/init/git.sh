@@ -90,7 +90,7 @@ echo 'k           : run `gitk`'
 echo 'ka          : run `gitk --all`'
 echo "gl [n=10]   : print n last lines from git log"
 echo "bb [n=10]   : list n git branches by last commit date. (if n==0: list all)"
-echo 'b [i]       : check-out to the i`th branch by last commit date. (without i: check-out to branch $b)'
+echo 'b[i]        : check-out to the i`th branch by last commit date. (without i: check-out to branch $b)'
 echo 'gco "name"  : check-out to branch `name`'
 echo 'gpr "name"  : git_pull_rebase "name"'
 echo 'gprb        : git_pull_rebase "$b"'
