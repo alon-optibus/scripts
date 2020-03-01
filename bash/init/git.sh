@@ -15,18 +15,8 @@ alias wip="git add --all && git commit -a -m 'wip $(nows)'"
 alias gprb='git_pull_rebase $b'
 
 
-b(){
-  if [ -z "$1" ]; then
-		gco $b
-	else
-    # select the i'th branch by last commit date
-		py3 $SCRIPTS/py3/tools/git/gco_by_date_index.py $1
-	fi
-}
-
-
 ########################################################################################################################
-# list git branches by last commit date:
+# list and name git branches by last commit date:
 
 export _BRANCH_VAR_COUNT=0
 
@@ -59,6 +49,8 @@ bb(){
 ########################################################################################################################
 
 
+alias b='gco $b'
+
 alias b0='gco $b0'
 alias b1='gco $b1'
 alias b2='gco $b2'
@@ -69,6 +61,7 @@ alias b6='gco $b6'
 alias b7='gco $b7'
 alias b8='gco $b8'
 alias b9='gco $b9'
+
 
 ########################################################################################################################
 
