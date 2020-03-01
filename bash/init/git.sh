@@ -25,7 +25,11 @@ b(){
 }
 
 
+########################################################################################################################
 # list git branches by last commit date:
+
+export _BRANCH_VAR_COUNT=0
+
 bb(){
 
   if [ -z "$1" ]; then
@@ -34,15 +38,26 @@ bb(){
     n=$1
   fi
 
+  # print list:
   py3 $SCRIPTS/py3/tools/git/branch_list_by_date.py $n
 
+  # clear old variables:
+  for i in `seq 1 $_BRANCH_VAR_COUNT`; do
+    export b$i=
+  done
+
+  # set new variables:
   i=0
   while IFS= read -r line; do
       export b$i="$line"
       let i=i+1
   done <<< "$(py3 $SCRIPTS/py3/tools/git/branch_name_list_by_date.py $n)"
 
+  export _BRANCH_VAR_COUNT=$i
 }
+
+########################################################################################################################
+
 
 alias b0='gco $b0'
 alias b1='gco $b1'

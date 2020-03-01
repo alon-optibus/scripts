@@ -23,17 +23,19 @@ for i, (date, author, branch) in enumerate(data):
 
     branch: str
 
+    var = f'b{i}'
+
     if branch == current_git_branch:
-        print(termfmt(42)(f'{date} by {author:{author_width}} [---] {branch}'))
+        print(termfmt(42)(f'{date} by {author:{author_width}} : {var:>4} = {branch}'))
 
     elif branch in ['develop', 'hotfix', 'rc', 'master']:
-        print(termfmt(96)(f'{date} by {author:{author_width}} [{i:3}] {branch}'))
+        print(termfmt(96)(f'{date} by {author:{author_width}} : {var:>4} = {branch}'))
 
     elif branch.startswith('jenkins-ignore-'):
-        print(termfmt(95)(f'{date} by {author:{author_width}} [{i:3}] {branch}'))
+        print(termfmt(95)(f'{date} by {author:{author_width}} : {var:>4} = {branch}'))
 
     else:
-        print(f'{date} by {author:{author_width}} [{i:3}] {branch}')
+        print(f'{date} by {author:{author_width}} : {var:>4} = {branch}')
 
 
 ########################################################################################################################
