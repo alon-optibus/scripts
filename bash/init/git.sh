@@ -22,14 +22,8 @@ export _BRANCH_VAR_COUNT=0
 
 bb(){
 
-  if [ -z "$1" ]; then
-    n=10
-  else
-    n=$1
-  fi
-
   # print list:
-  py3 $SCRIPTS/py3/tools/git/branch_list_by_date.py $n
+  py3 $SCRIPTS/py3/tools/git/branch_list_by_date.py "$@"
 
   # clear old variables:
   for i in `seq 1 $_BRANCH_VAR_COUNT`; do
@@ -41,7 +35,7 @@ bb(){
   while IFS= read -r line; do
       export b$i="$line"
       let i=i+1
-  done <<< "$(py3 $SCRIPTS/py3/tools/git/branch_name_list_by_date.py $n)"
+  done <<< "$(py3 $SCRIPTS/py3/tools/git/branch_name_list_by_date.py "$@")"
 
   export _BRANCH_VAR_COUNT=$i
 }
@@ -69,7 +63,7 @@ cb
 
 echo "REPO = '$REPO'"
 echo
-bb 10
+bb -n 10
 
 print_break
 
