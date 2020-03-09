@@ -1,12 +1,12 @@
 import argparse
 from fnmatch import fnmatch
 
+from my.utils.bash_1 import termfmt_cf
+from my.utils.bash_1 import termfmt_grb
+from my.utils.bash_1 import termfmt_pf
 from my.utils.git_1 import get_current_git_branch
 from my.utils.git_1 import get_user_name_from_git_config
 from my.utils.git_1 import iter_git_branch_by_date
-
-
-def termfmt(i): return f"\033[{i}m{{}}\033[00m".format
 
 ########################################################################################################################
 
@@ -40,8 +40,6 @@ args = parser.parse_args()
 
 if args.a is None:
     args.a = get_user_name_from_git_config()
-
-print(args)
 
 ########################################################################################################################
 
@@ -77,18 +75,18 @@ for i, (date, author, branch) in enumerate(branches):
     branch: str
 
     var = f'b{i}'
+    msg = f'{date} by {author:{author_width}} : {var:>4} = {branch}'
 
     if branch == current_git_branch:
-        print(termfmt(42)(f'{date} by {author:{author_width}} : {var:>4} = {branch}'))
+        msg = termfmt_grb(msg)
 
-    elif branch in ['develop', 'hotfix', 'rc', 'master']:
-        print(termfmt(96)(f'{date} by {author:{author_width}} : {var:>4} = {branch}'))
+    if branch in ['develop', 'hotfix', 'rc', 'master']:
+        msg = termfmt_cf(msg)
 
     elif branch.startswith('jenkins-ignore-'):
-        print(termfmt(95)(f'{date} by {author:{author_width}} : {var:>4} = {branch}'))
+        msg = termfmt_pf(msg)
 
-    else:
-        print(f'{date} by {author:{author_width}} : {var:>4} = {branch}')
+    print(msg)
 
 
 ########################################################################################################################

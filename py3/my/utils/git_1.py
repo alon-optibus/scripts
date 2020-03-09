@@ -3,80 +3,110 @@ from collections import namedtuple
 from datetime import datetime
 from pathlib import Path
 
+# <editor-fold desc="utils for git-log">
+
 GitLogCommit = namedtuple(
-    'Commit',
+    'GitLogCommit',
     [
-        'id',
-        'author',
-        'author_mail',
         'date',
-        'desc',
-        'merge',
+        'hash',
+        'author',
+        'commiter',
+        'subject',
+        'decoration',
     ]
 )
+
+_GIT_LOG__SEP_LINE = '-'*80
+
+_GIT_LOG__DATA_FORMAT_PARTS = [
+    '%cI',  # commit date
+    '%H',   # hash
+    '%an',  # author name
+    '%cn',  # commiter name
+    '%s',   # subject
+    '%D',   # decoration (ref names)
+    _GIT_LOG__SEP_LINE,
+]
+
+assert len(_GIT_LOG__DATA_FORMAT_PARTS) == len(GitLogCommit._fields) + 1
+
+_GIT_LOG__DATA_FORMAT = '%n'.join(_GIT_LOG__DATA_FORMAT_PARTS)
+
+# </editor-fold>
 
 
 def get_current_git_branch():
     return os.popen('git rev-parse --abbrev-ref HEAD').read().strip()
 
 
-def iter_git_log(path='', n=None):
-
-    cmd = 'git log' if n is None else f'git log -n {n}'
+def iter_git_log(
+        path=None,
+        n=None,
+        filter_author=None,
+        filter_commiter=None,
+        filter_merges=False,
+):
 
     if path:
-
         path = str(Path(path).resolve(True))
-
-        raw = os.popen(f'cd {path}; ' + cmd).read()
-
+        cmd_parts = [f'cd {path};']
     else:
+        cmd_parts = []
 
-        raw = os.popen(cmd).read()
+    cmd_parts.append('git log --decorate=short')
 
-    if not raw.startswith('commit '):
-        return None
+    if n:
+        cmd_parts.append(f'-n {n}')
 
-    logs = raw.split('\ncommit ')
-    logs[0] = logs[0][7:]
+    if filter_author:
+        cmd_parts.append(f'--author={filter_author}')
 
-    for i, log in enumerate(logs):
-        author = None
-        date = None
-        merge = None
-        author_mail = None
-        desc = []
+    if filter_commiter:
+        cmd_parts.append(f'--committer={filter_commiter}')
 
-        id_, *log_lines = log.splitlines()
+    if filter_merges:
+        cmd_parts.append('--merges')
 
-        for line in log_lines:
+    cmd_parts.append(f'--pretty="{_GIT_LOG__DATA_FORMAT}"')
 
-            line = line.strip()
+    cmd = ' '.join(cmd_parts)
 
-            if not line:
-                continue
+    raw = iter(os.popen(cmd))
 
-            elif line.startswith('Author: '):
-                author, author_mail = line[8:].split(' <')
-                author_mail = author_mail[:-1]
+    while True:
 
-            elif line.startswith('Date:   '):
-                date = datetime.strptime(line, 'Date:   %a %b %d %H:%M:%S %Y %z')
+        try:
+            (
+                raw_date,
+                hash_,
+                author,
+                commiter,
+                subject,
+                decoration,
+                split_line,
+            ) = (
+                next(raw).strip()
+                for _ in range(len(_GIT_LOG__DATA_FORMAT_PARTS))
+            )
 
-            elif line.startswith('Merge: '):
-                date = line[7:]
+        except RuntimeError:
+            return
 
-            else:
-                desc.append(line)
+        assert split_line == _GIT_LOG__SEP_LINE, split_line
+
+        date = datetime.fromisoformat(raw_date)
 
         yield GitLogCommit(
-            id=id_,
-            author=author,
             date=date,
-            merge=merge,
-            desc=desc,
-            author_mail=author_mail,
+            hash=hash_,
+            author=author,
+            commiter=commiter,
+            subject=subject,
+            decoration=decoration,
         )
+
+    pass
 
 
 def iter_git_branch_by_date(path=None, n=None):
