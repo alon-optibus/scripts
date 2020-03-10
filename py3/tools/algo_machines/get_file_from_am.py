@@ -7,7 +7,11 @@ from scp import SCPClient
 
 am_index = int(argv[1]) - 1
 remote_path = Path(argv[2])
-local_path = Path(argv[3]).resolve()
+
+if len(argv) > 3:
+    local_path = Path(argv[3]).resolve()
+else:
+    local_path = remote_path
 
 if local_path.is_file():
     local_path.unlink()
