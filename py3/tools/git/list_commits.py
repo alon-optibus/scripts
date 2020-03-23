@@ -72,9 +72,11 @@ subject_size = max(
     for x in commits
 )
 
+subject_size = min(subject_size, 60)
+
 for i, x in enumerate(commits):
 
-    msg = f'{x.date:%y-%m-%d %H:%M} By {x.author:{author_size}} : {x.subject:{subject_size}}'
+    msg = f'{x.date:%y-%m-%d %H:%M} By {x.author:{author_size}} : {x.subject[:60]:{subject_size}}'
 
     if x.decoration:
         msg += f' ({x.decoration})'
@@ -82,8 +84,8 @@ for i, x in enumerate(commits):
     if x.author != user_name_from_git_config:
         msg = termfmt_pf(msg)
 
-    if x.subject.startswith('wip'):
-        msg = termfmt_rb(msg)
+    # if x.subject.startswith('wip'):
+    #     msg = termfmt_rb(msg)
 
     print(msg)
 
