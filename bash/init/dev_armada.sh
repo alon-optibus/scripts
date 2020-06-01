@@ -49,6 +49,9 @@ echo "rc          : check-out to branch rc"
 echo 'gbji "name" : create branch `jenkins-ignore--name`'
 echo "p8          : run pep8 test"
 echo "p8m         : run pep8 test on modified"
+echo 'ap8         : auto-pep8 file inplace'
+echo 'ap80        : minimal auto-pep8 file inplace'
+echo "ap80m       : minimal auto-pep8 inplace all modified files relative to the given branch name (default: '$d')"
 
 print_break
 
