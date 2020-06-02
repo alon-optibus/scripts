@@ -84,7 +84,7 @@ list_uncommited(){
 
 list_untracked(){
 
-    files=$(git status -s | grep --color='never' '?? ')
+    files=$(git status -s | egrep --color='never' '^\?\? ')
 
     if [ -z "$files" ]
     then
