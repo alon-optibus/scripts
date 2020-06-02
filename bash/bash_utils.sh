@@ -272,3 +272,9 @@ alias pip3r='pip3 install -r'
 alias pipu='pip2u pip;pip2cu pip;pip2vu pip;pip3u pip;'
 
 ########################################################################################################################
+
+alias _ap8='py3 -m autopep8 -v --global-config="~/.config/setup.cfg"'
+alias _ap8_inplace='_ap8 --in-place'
+alias ap8='_ap8_inplace'
+
+########################################################################################################################

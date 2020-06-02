@@ -23,9 +23,6 @@ alias m2m='m; gm $b'
 alias lm='list_modified'
 alias lmp='list_modified_py'
 
-alias _ap8='py3 -m autopep8 -v'
-alias _ap8_inplace='_ap8 --in-place'
-
 ########################################################################################################################
 
 
@@ -76,15 +73,6 @@ list_modified(){
 
 list_modified_py(){
   list_modified "$1" | grep --color='never' '.py'
-}
-
-ap8(){
-  if [ -z "$1" ]
-  then
-    ap8m ''
-  else
-    _ap8_inplace $1
-  fi
 }
 
 ap8m(){

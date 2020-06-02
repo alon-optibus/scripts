@@ -43,11 +43,22 @@ class CryptoManager:
         )
 
         self.hash_module = unmissing(
-            hash_module, self.DEFAULT_HASH_MODULE, missing=None)
+            hash_module,
+            self.DEFAULT_HASH_MODULE,
+            missing=None,
+        )
+
         self.mac_module = unmissing(
-            mac_module, self.DEFAULT_MAC_MODULE, missing=None)
+            mac_module,
+            self.DEFAULT_MAC_MODULE,
+            missing=None,
+        )
+
         self.token_bytes = unmissing(
-            token_bytes, self.DEFAULT_TOKEN_BYTES, missing=None)
+            token_bytes,
+            self.DEFAULT_TOKEN_BYTES,
+            missing=None,
+        )
 
     def hash(self, data, n=1):
         return self.hash_module.new(data if n <= 1 else self.hash(data, n - 1)).digest()
