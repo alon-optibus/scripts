@@ -49,6 +49,20 @@ ap80m(){
   p8m
 }
 
+
+rename-ji(){
+
+    if [ -z "$1" ]; then
+      name=$(current_branch)
+    else
+      name=$1
+    fi
+
+    git branch -m "jenkins-ignore--$name"
+}
+
+
+
 ########################################################################################################################
 
 info_armada(){

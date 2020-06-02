@@ -22,6 +22,8 @@ alias gm='git_merge'
 alias m2m='m; gm $b'
 alias lm='list_modified'
 alias lmp='list_modified_py'
+alias lmd='lm $DEFAULT_BRANCH'
+alias lmpd='lmp $DEFAULT_BRANCH'
 
 ########################################################################################################################
 
