@@ -273,8 +273,17 @@ alias pipu='pip2u pip;pip2cu pip;pip2vu pip;pip3u pip;'
 
 ########################################################################################################################
 
-alias _ap8='py3 -m autopep8 -v --global-config "$SCRIPTS/pycodestyle.cfg"'
+alias __ap8='py3 -m autopep8'
+alias _ap8='__ap8 -v --global-config "$PYCODESTYLE"'
 alias _ap8_inplace='_ap8 --in-place'
-alias ap8='_ap8_inplace'
+
+ap8(){
+  if [ -z "$1" ]
+  then
+    _ap8 -h
+  else
+    _ap8_inplace "$@" | grep --regexp="--->" --before-context=1
+  fi
+}
 
 ########################################################################################################################

@@ -76,10 +76,21 @@ list_modified_py(){
 }
 
 ap8m(){
+
+  files=$(list_modified_py "$1")
+
+  if [ -z $files ]
+  then
+    return
+  fi
+
   while IFS= read -r line
   do
-    _ap8_inplace "$line" | grep --regexp="--->" --before-context=1
-  done <<< "$(list_modified_py "$1")"
+    if [ -n "$line" ]
+    then
+      ap8 "$line"
+    fi
+  done <<< "$files"
 }
 
 ########################################################################################################################
