@@ -62,22 +62,65 @@ git_merge() {
 }
 
 
+list_uncommited(){
+
+    files=$(git status -s)
+
+    if [ -z "$files" ]
+    then
+      return
+    fi
+
+    while IFS= read -r line
+    do
+      if [ -n "$line" ]
+      then
+        echo ${line:3}
+      fi
+    done <<< "$files"
+
+}
+
+
+list_untracked(){
+
+    files=$(git status -s | grep --color='never' '?? ')
+
+    if [ -z "$files" ]
+    then
+      return
+    fi
+
+    while IFS= read -r line
+    do
+      if [ -n "$line" ]
+      then
+        echo ${line:3}
+      fi
+    done <<< "$files"
+
+}
+
+
 list_modified(){
   if [ -z "$1" ]
   then
-    git diff --name-only
+    list_uncommited
   else
     git diff --cached --name-only origin/$1
+    list_untracked
   fi
 }
 
+
 list_modified_py(){
-  list_modified "$1" | grep --color='never' '.py'
+  list_modified "$@" | grep --color='never' '.py'
 }
+
 
 ap8m(){
 
-  files=$(list_modified_py "$1")
+  files=$(list_modified_py "$@")
 
   if [ -z $files ]
   then
@@ -92,6 +135,7 @@ ap8m(){
     fi
   done <<< "$files"
 }
+
 
 ########################################################################################################################
 # list and name git branches by last commit date:
