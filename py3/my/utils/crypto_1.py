@@ -7,9 +7,6 @@ import Crypto.Cipher.AES
 from my.utils.utils_3 import unmissing
 
 
-########################################################################################################################
-
-
 class DecryptionFailed (Exception):
     pass
 
@@ -112,8 +109,6 @@ class CryptoManager:
 
     pass
 
-
-########################################################################################################################
 
 crypto_manager = CryptoManager()
 
