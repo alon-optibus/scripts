@@ -1,0 +1,25 @@
+[interact with S3]
+
+s3: show this message.
+
+aws_login = `saml2aws login - -session-duration = 32400`
+
+s3_put_file "file": upload file to `algo-research["alon-mirror:file"]`.
+s3_put_file "key" "file": upload file to `algo-research["key"]`.
+s3_get_file "file": download from `algo-research["alon-mirror:file"]` to file.
+s3_get_file "key" "file": download from `algo-research["key"]` to file.
+s3_has_key "key": return 1 if `algo-research["key"]` exists or 0 otherwise.
+s3_has_mirror "file": return 1 if `algo-research["alon-mirror:file"]` exists or 0 otherwise.
+s3_del_key "key": delete `algo-research["key"]`.
+s3_del_mirror "file": delete `algo-research["alon-mirror:file"]`.
+s3_list_keys: list all keys in `algo-research`.
+s3_list_keys "prefix": list all keys in `algo-research` that starts with `prefix`.
+s3_list_mirror: list all keys in `algo-research` that starts with `alon-mirror: `.
+s3_list_mirror "prefix": list all keys in `algo-research` that starts with `alon-mirror: prefix`.
+s3_get_mirror_key "file": print the mirror-key of `file`.
+s3_stream "key": stream the content of `algo-research["key"]`.
+s3_stream_mirror "file": stream the content of `algo-research["alon-mirror:file"]`.
+
+s3_command_for_downlad "file": print command to download from `algo-research["alon-mirror:file"]` to file
+without scripts.
+s3_command_for_downlad "key" "file": print command to download from `algo-research["key"]` to file without scripts.

@@ -11,7 +11,7 @@ alias_and_type(){
 }
 
 type_var(){
-  echo $1=${!1}
+  echo "$1 = '${!1}'"
 }
 
 init_local(){
@@ -31,10 +31,69 @@ alias r='cdi $RESEARCH'
 alias a='cdi $ROOT'
 alias s='cdi $SCRIPTS'
 
+unalias zipr
+
+zipr(){
+    if [ -z "$1" ]
+    then
+    display_info zipr
+    else
+    py3 $SCRIPTS/py3/tools/zipr.py "$@"
+    fi
+}
+
 ########################################################################################################################
 
-# display system information:
-lsb_release -a
+display_info(){
+    print_break
+    cat "$SCRIPTS/bash/info/$1.txt"
+    echo
+    print_break
+}
+
+info_system(){
+    # display system information:
+    lsb_release - a
+}
+
+info_paths(){
+    echo "[environment variables]"
+    echo "HOME              : home directory ('$HOME')"
+    echo "ROOT              : armada dev directory ('$ROOT')"
+    echo "RESEARCH          : research directory ('$RESEARCH')"
+    echo "SCRIPTS           : scripts directory ('$SCRIPTS')"
+    echo "DATA_DIR          : data directory ('$DATA_DIR')"
+    echo "ARCHIVE_DIR       : data directory ('$ARCHIVE_DIR')"
+}
+
+info_interactive(){
+    echo "[interactive bush commands]"
+    echo "init : init with local context"
+    echo "a    : init armada context in '\$ROOT' ('$ROOT')"
+    echo "r    : init research context in '\$RESEARCH' ('$RESEARCH')"
+    echo "s    : init scripts context in '\$SCRIPTS' ('$SCRIPTS')"
+}
+
+info_bash(){
+    print_break
+    info_system
+    print_break
+    info_paths
+    display_info bash
+    info_interactive
+    print_break
+}
+
+alias info='info_bash'
+alias am='display_info am'
+alias s3='display_info s3'
+alias pip='display_info pip'
+
+########################################################################################################################
+
+# call info function
+alias ?='info'
+echo '?: display info'
 print_break
 
 # run './~bash_init~' if exists:

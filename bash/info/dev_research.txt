@@ -1,0 +1,2 @@
+[bush commands for research]
+vip: run VIP benchmark('py2 "$RESEARCH/alon/experiments/vip/ex_vip__benchmark.py"')

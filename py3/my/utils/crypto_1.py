@@ -10,10 +10,11 @@ from my.utils.utils_3 import unmissing
 ########################################################################################################################
 
 
-class DecryptionFailed (Exception): pass
+class DecryptionFailed (Exception):
+    pass
 
 
-class CryptyManager:
+class CryptoManager:
 
     __slots__ = (
         'hash_module',
@@ -34,14 +35,22 @@ class CryptyManager:
             hash_module=None,
             token_bytes=None,
     ):
-        self.cipher_module = unmissing(cipher_module, self.DEFAULT_CIPHER_MODULE, missing=None)
-        self.hash_module = unmissing(hash_module, self.DEFAULT_HASH_MODULE, missing=None)
-        self.mac_module = unmissing(mac_module, self.DEFAULT_MAC_MODULE, missing=None)
-        self.token_bytes = unmissing(token_bytes, self.DEFAULT_TOKEN_BYTES, missing=None)
 
-    def hash(self, data, n=0xA5):
+        self.cipher_module = unmissing(
+            cipher_module,
+            self.DEFAULT_CIPHER_MODULE,
+            missing=None,
+        )
+
+        self.hash_module = unmissing(
+            hash_module, self.DEFAULT_HASH_MODULE, missing=None)
+        self.mac_module = unmissing(
+            mac_module, self.DEFAULT_MAC_MODULE, missing=None)
+        self.token_bytes = unmissing(
+            token_bytes, self.DEFAULT_TOKEN_BYTES, missing=None)
+
+    def hash(self, data, n=1):
         return self.hash_module.new(data if n <= 1 else self.hash(data, n - 1)).digest()
-
 
     def mac(self, key, data, n=0x86):
 
@@ -50,7 +59,6 @@ class CryptyManager:
             msg=(data if n <= 1 else self.mac(key, data, n - 1)),
             digestmod=self.hash_module,
         ).digest()
-
 
     def encrypt(self, key, data):
 
@@ -62,7 +70,6 @@ class CryptyManager:
             mode=self.cipher_module.MODE_CFB,
             IV=iv,
         ).encrypt(data)
-
 
     def decrypt(self, key, data):
 
@@ -81,10 +88,10 @@ class CryptyManager:
             IV=iv,
         ).decrypt(e)
 
-        if self.hash(iv + d) != th: raise DecryptionFailed()
+        if self.hash(iv + d) != th:
+            raise DecryptionFailed()
 
         return d
-
 
     def rand_iv(self, *, nbytes=None):
 
@@ -97,6 +104,6 @@ class CryptyManager:
 
 ########################################################################################################################
 
-crypto_manager = CryptyManager()
+crypto_manager = CryptoManager()
 
 ########################################################################################################################

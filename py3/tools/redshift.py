@@ -43,6 +43,8 @@ master.bind('<Down>', decrease)
 v1 = tk.StringVar()
 v1.set('4')
 
+set_redshift()
+
 e1 = tk.Entry(
     master,
     textvariable=v1,

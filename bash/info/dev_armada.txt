@@ -1,0 +1,14 @@
+[bush commands for armada]
+d           : check-out to branch "develop"
+hf          : check-out to branch "hotfix"
+rc          : check-out to branch "rc"
+gbji        : create branch "jenkins-ignore--$(current_branch)"
+gbji $1     : create branch "jenkins-ignore--$1"
+lm          : list modified files"
+lm $1       : list modified files relative to the branch "$1"
+p8          : run pep8 test
+p8m         : run pep8 test on modified
+ap8         : auto-pep8 file inplace
+ap80        : minimal auto-pep8 file inplace
+ap8m        : ap8 for modified files
+ap80m       : ap80 for modified files

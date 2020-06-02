@@ -1,0 +1,21 @@
+pip2 $@: run python pip in enviroment "envp"
+pip2c $@: run python pip in enviroment "envcp"
+pip2v $@: run python pip in enviroment "venv"
+pip3 $@: run python pip in Anaconda3 enviroment
+
+pip2i $@: install package in enviroment "envp"
+pip2ci $@: install package in enviroment "envcp"
+pip2vi $@: install package in enviroment "venv"
+pip3i $@: install package in Anaconda3 enviroment
+
+pip2r $@: install requirements in enviroment "envp"
+pip2cr $@: install requirements in enviroment "envcp"
+pip2vr $@: install requirements in enviroment "venv"
+pip3r $@: install requirements in Anaconda3 enviroment
+
+pip2u $@: update package in enviroment "envp"
+pip2cu $@: update package in enviroment "envcp"
+pip2vu $@: update package in enviroment "venv"
+pip3u $@: update package in Anaconda3 enviroment
+
+pipu: update all pip`s

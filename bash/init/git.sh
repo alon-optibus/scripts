@@ -3,17 +3,96 @@
 EDITOR=gedit
 
 export REPO=$(basename `git rev-parse --show-toplevel`)
+export m='master'
+export DEFAULT_BRANCH=$m
 
-alias s='git status'
+alias s='git status -s'
+alias m='gco $m'
 alias p='git push'
 alias pf='git push -f'
-alias cb='b=$(current_branch)'
+alias cb='b=$(current_branch); type_var b'
 alias k='gitk'
 alias ka='gitk --all'
 alias gl='py3 $py3_tools/git/list_commits.py'
 alias wip="git add --all && git commit -a -m 'wip $(nows)'"
+alias gr='git fetch origin && git reset --hard origin/$(current_branch)'
+alias gpr='git_pull_rebase'
 alias gprb='git_pull_rebase $b'
+alias gm='git_merge'
+alias m2m='m; gm $b'
+alias lm='list_modified'
+alias lmp='list_modified_py'
 
+alias _ap8='py3 -m autopep8 -v'
+alias _ap8_inplace='_ap8 --in-place'
+
+########################################################################################################################
+
+
+current_branch() {
+    git rev-parse --abbrev-ref HEAD
+}
+
+
+rename(){
+  if [ -z "$2" ]; then
+    echo 'Changing branch name to ' $1
+    git branch -m $1
+  else
+    echo 'Changing branch name from ' $1 ' to ' $2
+    git branch -m $1 $2
+  fi
+}
+
+
+git_pull_rebase() {
+    if [ -z "$1" ]; then
+        git pull --rebase origin $DEFAULT_BRANCH
+    else
+        git pull --rebase origin $1
+    fi
+}
+
+
+git_merge() {
+  if [ -z "$1" ]; then
+    echo "Usage: gm <branch_name>"
+  else
+    if [[ "$(current_branch)" != "$1" ]]; then
+      git_reset force && git merge --no-ff $1
+    fi
+  fi
+}
+
+
+list_modified(){
+  if [ -z "$1" ]
+  then
+    git diff --name-only
+  else
+    git diff --cached --name-only origin/$1
+  fi
+}
+
+list_modified_py(){
+  list_modified "$1" | grep --color='never' '.py'
+}
+
+ap8(){
+  if [ -z "$1" ]
+  then
+    ap8m ''
+  else
+    _ap8_inplace $1
+  fi
+}
+
+ap8m(){
+  while IFS= read -r line
+  do
+    _ap8_inplace "$line" | grep --regexp="--->" --before-context=1
+  done <<< "$(list_modified_py "$1")"
+}
 
 ########################################################################################################################
 # list and name git branches by last commit date:
@@ -59,35 +138,19 @@ alias b9='gco $b9'
 
 ########################################################################################################################
 
+type_var REPO
 cb
-
-echo "REPO = '$REPO'"
-echo
-bb -n 10
-
 print_break
 
-echo "[git status]"
-s
-print_break
-echo "[git log]"
-gl
+info_git(){
+  print_break
+  type_var REPO
+  type_var b
+  info_bash
+  display_info git
+  print_break
+}
 
-print_break
-
-echo "[bush commands]"
-echo 's           : print git status'
-echo 'p           : push'
-echo 'pf          : push force'
-echo 'cb          : set `$b` to current branch'
-echo 'k           : run `gitk`'
-echo 'ka          : run `gitk --all`'
-echo "gl [n=10]   : print n last lines from git log"
-echo "bb [n=10]   : list n git branches by last commit date. (if n==0: list all)"
-echo 'b[i]        : check-out to the i`th branch by last commit date. (without i: check-out to branch $b)'
-echo 'gco "name"  : check-out to branch `name`'
-echo 'gpr "name"  : git_pull_rebase "name"'
-echo 'gprb        : git_pull_rebase "$b"'
-echo 'gb "name"   : create branch `name`'
+alias info="info_git"
 
 ########################################################################################################################

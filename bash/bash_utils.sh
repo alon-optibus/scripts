@@ -24,7 +24,7 @@ alias cds='cd $SCRIPTS'
 
 alias print_break='printf "_______________________________________________________________________________________________\n\n"'
 
-env-reset(){
+reset-env(){
   source /etc/environment
   export PYTHONPATH=
   source ~/.profile
@@ -87,18 +87,6 @@ unzip_remove(){
 ########################################################################################################################
 
 alias zipr='py3 $SCRIPTS/py3/tools/zipr.py'
-# zip file or directory:
-#   zipr "dir/name"                    : write to "dir/name.zip"
-#   zipr "dir/name" "dst_name"         : write to "dir/dst_name.zip"
-#   zipr "dir/name" "dst_dir"          : write to "dst_dir/name.zip"
-#   zipr "dir/name" "dst_dir/dst_name" : write to "dst_dir/dst_name.zip"
-#   {name} in `dst_name` replaced with `name`.
-#   {stem} in `dst_name` replaced with `name` without suffix.
-#   {time} in `dst_name` replaced with time-stamp (%Y-%m-%d_%H-%M-%S-%f).
-#
-#  If done successfully, the last line to be printed will be the path of the created zip file.
-#  Otherwise, the last line to be printed will be empty.
-
 
 arc(){
 	if [ -d "$1" ]
@@ -163,7 +151,12 @@ sagi(){
   apt-cache policy "$1"
 }
 
+dpkg_find(){
+  dpkg - l "$1" | grep ^ i
+}
+
 alias sedit='sudo gedit'
+alias snano='sudo nano'
 
 alias venv='deactivate_conda; source ~/dev/venv/bin/activate'
 alias envp='deactivate_conda; source ~/dev/envp/bin/activate'
@@ -182,8 +175,6 @@ alias pam='ping_algo_machines'
 alias mam='mount_algo_machine'
 alias gfm='get_file_from_algo_machine'
 alias sfm='send_file_to_algo_machine'
-
-alias am='less -FX "$SCRIPTS/info/am.txt"'
 
 alias am_get='py3 $SCRIPTS/py3/tools/algo_machines/get_file_from_am.py'
 alias am_put='py3 $SCRIPTS/py3/tools/algo_machines/put_file_in_am.py'
@@ -215,8 +206,6 @@ am3(){
 
 #####################################################################################################
 
-alias s3='less -FX "$SCRIPTS/info/s3.txt"'
-
 alias aws_login='saml2aws login --session-duration=32400'
 
 alias s3_put_file='py3 $SCRIPTS/py3/tools/s3/put_file.py'
@@ -247,3 +236,39 @@ cat_context_logger(){
 }
 
 #####################################################################################################
+
+alias conda='py3 -m conda'
+alias condai='conda install'
+
+condau(){
+  if [ -z "$1" ]
+  then
+    conda update conda anaconda
+  else
+    conda update "$@"
+  fi
+}
+
+alias pip2='py2 -m pip'
+alias pip2c='py2c -m pip'
+alias pip2v='py2v -m pip'
+alias pip3='py3 -m pip'
+
+alias pip2i='pip2 install'
+alias pip2ci='pip2c install'
+alias pip2vi='pip2v install'
+alias pip3i='pip3 install'
+
+alias pip2u='pip2 install -U'
+alias pip2cu='pip2c install -U'
+alias pip2vu='pip2v install -U'
+alias pip3u='pip3 install -U'
+
+alias pip2r='pip2 install -r'
+alias pip2cr='pip2c install -r'
+alias pip2vr='pip2v install -r'
+alias pip3r='pip3 install -r'
+
+alias pipu='pip2u pip;pip2cu pip;pip2vu pip;pip3u pip;'
+
+########################################################################################################################
