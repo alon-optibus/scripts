@@ -1,23 +1,24 @@
 [bush commands for git]
-m: check-out to branch "master"
-s: display git status
-p: push
-pf: push force
-cb: set "$b" to current branch
-k: run `gitk`
-ka: run `gitk - -all`
-gl [n = 10]: print n last lines from git log
-bb [n = 10]: list n git branches by last commit date. (if n == 0: list all)
-b[i]: check-out to the i`th branch by last commit date. (without i: check-out to branch "$b")
-gco $1: check-out to branch "$1"
-gr: git reset
-gpr: git pull rebase "$DEFAULT_BRANCH"
-gpr $1: git pull rebase "$1"
-gprb: git pull rebase "$b"
-gb $1: create branch "$1"
-gm: git merge
-m2m: git merge current branch to "$DEFAULT_BRANCH"
-lm: list modified files
-lm $1: list modified files relative to other branch
-rename: rename branch
-ap8: auto-pep8 in -place
+m           : check-out to branch "master"
+s           : display git status
+p           : push
+pf          : push force
+cb          : set "$b" to current branch
+k           : run `gitk`
+ka          : run `gitk --all`
+gl [n = 10] : print n last lines from git log
+bb [n = 10] : list n git branches by last commit date. (if n==0: list all)
+b[i]        : check-out to the i`th branch by last commit date. (without i: check-out to branch "$b")
+gco $1      : check-out to branch "$1"
+gr          : git reset
+gpr         : git pull rebase "$DEFAULT_BRANCH"
+gpr $1      : git pull rebase "$1"
+gprb        : git pull rebase "$b"
+gb $1       : create branch "$1"
+gm          : git merge
+m2m         : git merge current branch to "$DEFAULT_BRANCH"
+lm          : list modified files
+lm $1       : list modified files relative to other branch
+rename      : rename branch
+ap8         : auto-pep8 file inplace
+ap8m        : ap8 for modified files

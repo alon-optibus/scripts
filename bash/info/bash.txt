@@ -1,34 +1,34 @@
 [basic bush commands]
-env: display all environment variables
-tree: display file tree
-cdd: cd to downloads
-cdi $1: cd to "$1" and call 'init_local'
-cd_tmp_dir: cd to a new empty temporary directory
-reset-env: reset environment variables
-reset-path: reset "$PATH" (to "$BASE_PATH")
-path_create $1: create directory with path = "$1"
-path_remove $1: romove all the paths that start from "$1"
-path_remove_pwd: romove current work directory(cd to parent directory)
-zipr ?: zip directory
-arc $1: zip file or directory to "$ARCHIVE_DIR" with time stamp
-path_unzip $1: uzip "$1" to current work directory.
-path_unzip $1 $2: unzip "$1" to "$2"
-dpkg_find $1: find package
-sagi $1: install package(sudo apt-get install)
-sedit: edit text with sudo(sudo gedit)
-snano: edit text with sudo(sudo nano)
-am ?: interact with algo-machines
-am[i]: interact with algo-machine `i` (i=1 | 2 | 3)
-s3 ?: interact with S3
-py2 $@: run python with enviroment "envp"
-py2c $@: run python with enviroment "envcp"
-py2v $@: run python with enviroment "venv"
-py3 $@: run python with Anaconda3 enviroment
-ipy2 $@: run ipython with enviroment "envp"
-ipy2c $@: run ipython with enviroment "envcp"
-ipy2v $@: run ipython with enviroment "venv"
-ipy3 $@: run ipython with Anaconda3 enviroment
-conda: run conda in Anaconda3 enviroment
-read-log $1: read log file "$1"
-now: raw time(seconds)
-nows: date & time string
+env              : display all environment variables
+tree             : display file tree
+cdd              : cd to downloads
+cdi $1           : cd to "$1" and call 'init_local'
+cd_tmp_dir       : cd to a new empty temporary directory
+reset-env        : reset environment variables
+reset-path       : reset "$PATH" (to "$BASE_PATH")
+path_create $1   : create directory with path = "$1"
+path_remove $1   : romove all the paths that start from "$1"
+path_remove_pwd  : romove current work directory(cd to parent directory)
+zipr ?           : zip directory
+arc $1           : zip file or directory to "$ARCHIVE_DIR" with time stamp
+path_unzip $1    : uzip "$1" to current work directory.
+path_unzip $1 $2 : unzip "$1" to "$2"
+dpkg_find $1     : find package
+sagi $1          : install package(sudo apt-get install)
+sedit            : edit text with sudo(sudo gedit)
+snano            : edit text with sudo(sudo nano)
+am ?             : interact with algo-machines
+am[i]            : interact with algo-machine `i` (i=1 | 2 | 3)
+s3 ?             : interact with S3
+py2 $@           : run python with enviroment "envp"
+py2c $@          : run python with enviroment "envcp"
+py2v $@          : run python with enviroment "venv"
+py3 $@           : run python with Anaconda3 enviroment
+ipy2 $@          : run ipython with enviroment "envp"
+ipy2c $@         : run ipython with enviroment "envcp"
+ipy2v $@         : run ipython with enviroment "venv"
+ipy3 $@          : run ipython with Anaconda3 enviroment
+conda            : run conda in Anaconda3 enviroment
+read-log $1      : read log file "$1"
+now              : raw time(seconds)
+nows             : date & time string
