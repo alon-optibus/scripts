@@ -18,8 +18,8 @@ source $SCRIPTS/bash/init/git.sh
 
 info_research(){
     info_git
-    display_info dev_research
     print_break
+    display_info dev_research
 }
 
 alias info="info_research"

@@ -45,10 +45,8 @@ zipr(){
 ########################################################################################################################
 
 display_info(){
-    print_break
     cat "$SCRIPTS/bash/info/$1.txt"
     echo
-    print_break
 }
 
 info_system(){
@@ -75,13 +73,13 @@ info_interactive(){
 }
 
 info_bash(){
-    print_break
     info_system
     print_break
     info_paths
-    display_info bash
-    info_interactive
     print_break
+    display_info bash
+    print_break
+    info_interactive
 }
 
 alias info='info_bash'
@@ -92,7 +90,7 @@ alias pip='display_info pip'
 ########################################################################################################################
 
 # call info function
-alias ?='info'
+alias ?='print_break;info;print_break'
 echo '?: display info'
 print_break
 

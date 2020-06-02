@@ -53,8 +53,8 @@ ap80m(){
 
 info_armada(){
   info_git
-  display_info dev_armada
   print_break
+  display_info dev_armada
 }
 
 alias info="info_armada"

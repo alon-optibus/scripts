@@ -142,12 +142,12 @@ cb
 print_break
 
 info_git(){
-  print_break
   type_var REPO
   type_var b
-  info_bash
-  display_info git
   print_break
+  info_bash
+  print_break
+  display_info git
 }
 
 alias info="info_git"
