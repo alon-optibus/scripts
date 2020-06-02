@@ -2,7 +2,7 @@
 
 EDITOR=gedit
 
-export REPO=$(basename `git rev-parse --show-toplevel`)
+export REPO=$(basename "`git rev-parse --show-toplevel`")
 export m='master'
 export DEFAULT_BRANCH=$m
 
