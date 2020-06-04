@@ -2,7 +2,7 @@
 
 s3 : show this message.
 
-aws_login = `saml2aws login --session-duration=32400`
+aws_login = `saml2aws login --session-duration=32400` (use JumpCloud password and MFA)
 
 s3_put_file "file"       : upload file to `algo-research["alon-mirror:file"]`.
 s3_put_file "key" "file" : upload file to `algo-research["key"]`.
