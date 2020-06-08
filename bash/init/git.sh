@@ -64,7 +64,7 @@ git_merge() {
 }
 
 
-list_uncommited(){
+list_uncommited_files(){
 
     files=$(git status -s)
 
@@ -84,7 +84,7 @@ list_uncommited(){
 }
 
 
-list_untracked(){
+list_untracked_files(){
 
     files=$(git status -s | egrep --color='never' '^\?\? ')
 
@@ -107,10 +107,10 @@ list_untracked(){
 list_modified(){
   if [ -z "$1" ]
   then
-    list_uncommited
+    list_uncommited_files
   else
     git diff --cached --name-only origin/$1
-    list_untracked
+    list_untracked_files
   fi
 }
 
@@ -167,8 +167,6 @@ bb(){
 ########################################################################################################################
 
 
-alias b='gco $b'
-
 alias b0='gco $b0'
 alias b1='gco $b1'
 alias b2='gco $b2'
@@ -180,6 +178,10 @@ alias b7='gco $b7'
 alias b8='gco $b8'
 alias b9='gco $b9'
 
+
+b(){
+  git checkout "$(eval "echo \$b$1")"
+}
 
 ########################################################################################################################
 

@@ -25,7 +25,7 @@ ap80(){
   then
     ap8
   else
-    ap8 --select=W2,W3,E305,E306 "$@"
+    ap8 --select=W2,W3,E305,E306,E225,E261 "$@"
   fi
 }
 
