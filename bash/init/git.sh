@@ -24,12 +24,19 @@ alias lm='list_modified'
 alias lmp='list_modified_py'
 alias lmd='lm $DEFAULT_BRANCH'
 alias lmpd='lmp $DEFAULT_BRANCH'
+alias gaa='git add --all'
+alias pcm='pycharm_modified_py'
 
 ########################################################################################################################
 
 
 current_branch() {
     git rev-parse --abbrev-ref HEAD
+}
+
+
+default-branch(){
+  default "$(current_branch)" "$1"
 }
 
 
@@ -136,6 +143,12 @@ ap8m(){
       ap8 "$line"
     fi
   done <<< "$files"
+}
+
+
+pycharm_modified_py(){
+  files=$(list_modified_py "$@")
+  pycharm $(for i in $files;do echo -n " $i";done)
 }
 
 

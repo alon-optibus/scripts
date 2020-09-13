@@ -2,6 +2,10 @@
 
 am : show this message.
 
+am1 : log algo-macine 1 with command-line
+am2 : log algo-macine 2 with command-line
+am3 : log algo-macine 3 with command-line
+
 am_ll i                             : list files of algo-machine `i` in home directory.
 am_ll i "remote_path"               : list files of algo-machine `i` in `remote_path`.
 am_get i "remote_path"              : get file from algo-machine `i` to the local mirror path of `remote_path`.
@@ -10,3 +14,8 @@ am_put i "local_path"               : put `local_path` in algo-machine `i` in th
 am_put i "local_path" "remote_path" : put `local_path` in algo-machine `i` in `remote_path`.
 am_del i "remote_path"              : del `remote_path` from algo-machine `i`.
 am_cat i "remote_path"              : stream `remote_path` from algo-machine `i`.
+
+pam   : ping all algo machines
+pam i : ping algo machine i
+lam i : log to algo machine i
+mam i : mount algo machine i

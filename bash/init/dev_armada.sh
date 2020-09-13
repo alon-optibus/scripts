@@ -25,7 +25,7 @@ ap80(){
   then
     ap8
   else
-    ap8 --select=W2,W3,E305,E306,E225,E261 "$@"
+    ap8 --select="W2,W3,E305,E306,E225,E261", "$@"
   fi
 }
 
@@ -51,16 +51,13 @@ ap80m(){
 
 
 rename-ji(){
-
-    if [ -z "$1" ]; then
-      name=$(current_branch)
-    else
-      name=$1
-    fi
-
-    git branch -m "jenkins-ignore--$name"
+    git branch -m "jenkins-ignore--$(default-branch)"
 }
 
+
+jk(){
+  xdg-open "https://jenkins-ci.optibus.com/blue/organizations/jenkins/Armada%2FFeature%20branches%20-%20Push/activity/?branch=$(default-branch)"
+}
 
 
 ########################################################################################################################

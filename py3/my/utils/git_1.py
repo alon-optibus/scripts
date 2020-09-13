@@ -1,7 +1,8 @@
 import os
 from collections import namedtuple
 from datetime import datetime
-from pathlib import Path
+
+from .bash_1 import shell_lines
 
 # <editor-fold desc="utils for git-log">
 
@@ -48,12 +49,7 @@ def iter_git_log(
         filter_merges=False,
 ):
 
-    if path:
-        path = str(Path(path).resolve(True))
-        cmd_parts = [f'cd {path};']
-    else:
-        cmd_parts = []
-
+    cmd_parts = []
     cmd_parts.append('git log --decorate=short')
 
     if n:
@@ -70,9 +66,7 @@ def iter_git_log(
 
     cmd_parts.append(f'--pretty="{_GIT_LOG__DATA_FORMAT}"')
 
-    cmd = ' '.join(cmd_parts)
-
-    raw = iter(os.popen(cmd))
+    raw = shell_lines(cmd_parts, path)
 
     while True:
 
@@ -109,30 +103,33 @@ def iter_git_log(
     pass
 
 
-def iter_git_branch_by_date(path=None, n=None):
+def iter_git_branch_by_date(path=None, n=None, oldest=False):
 
     cmd_parts = [
         "git for-each-ref",
-        "--sort=-committerdate refs/heads/ --format='%(committerdate:raw)|%(authorname)|%(refname:short)'"
+        "--sort={}committerdate".format('' if oldest else '-'),
+        "refs/heads/",
+        "--format='%(committerdate:raw)|%(authorname)|%(refname:short)'",
     ]
 
     if n:
         cmd_parts.insert(1, f'--count={n}')
 
-    if path:
-        cmd_parts.insert(0, f'cd {path};')
-
-    cmd = ' '.join(cmd_parts)
-
-    raw: str = os.popen(cmd).read()
-
-    for line in raw.splitlines(False):
+    for line in shell_lines(cmd_parts, path):
         raw_date, author, refname = line.split('|', 2)
         timestamp_str, _ = raw_date.split(' ', 1)
         date = datetime.fromtimestamp(int(timestamp_str))
         yield date, author, refname
 
     pass
+
+
+def delete_git_branch(branch_name, cwd=None, force=False):
+    return list(shell_lines([
+        'git branch',
+        '-D' if force else '-d',
+        branch_name,
+    ], cwd))
 
 
 ########################################################################################################################

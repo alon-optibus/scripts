@@ -76,7 +76,7 @@ subject_size = min(subject_size, 60)
 
 for i, x in enumerate(commits):
 
-    msg = f'{x.date:%y-%m-%d %H:%M} By {x.author:{author_size}} : {x.subject[:60]:{subject_size}}'
+    msg = f'{x.date:%y-%m-%d %H:%M} By {x.author:{author_size}} : {x.subject[:60]:{subject_size}} ({x.hash})'
 
     if x.decoration:
         msg += f' ({x.decoration})'
