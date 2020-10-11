@@ -77,15 +77,26 @@ def s3_del(key, bucket=s3bucket__algo, log_func=print, validate=True):
 
 def put_file_in_s3(key, path, bucket=s3bucket__algo, log_func=print, validate=True):
     path = Path(path).resolve(True)
+    file_size = path.stat().st_size
     exists = s3_has(key=key, bucket=bucket)
 
-    if log_func is not None:
+    if log_func:
         log_func(f'put file "{path}" in s3["{key}"]' + (' (replacing)' if exists else ''))
+
+    n_bytes_total = 0
+
+    def callback(n_bytes):
+        nonlocal n_bytes_total
+        n_bytes_total += n_bytes
+        print('\r{:.1%} [{:,}/{:,} B]'.format(n_bytes_total/file_size, n_bytes_total, file_size), end='')
 
     if exists:
         s3_del(key=key, bucket=bucket, log_func=log_func, validate=validate)
 
-    res = bucket.Object(key).upload_file(str(path))
+    try:
+        res = bucket.Object(key).upload_file(str(path), Callback=callback)
+    finally:
+        print('')
 
     if validate and not s3_has(key=key, bucket=bucket):
         raise S3PutError(res)
@@ -110,7 +121,19 @@ def get_file_from_s3(key, path, bucket=s3bucket__algo, log_func=print, validate=
     elif not parent.exists():
         os.makedirs(str(parent))
 
-    res = bucket.download_file(key, str(path))
+    o = bucket.Object(key)
+    file_size = o.content_length
+    n_bytes_total = 0
+
+    def callback(n_bytes):
+        nonlocal n_bytes_total
+        n_bytes_total += n_bytes
+        print('\r{:.1%} [{:,}/{:,} B]'.format(n_bytes_total/file_size, n_bytes_total, file_size), end='')
+
+    try:
+        res = o.download_file(str(path), Callback=callback)
+    finally:
+        print('')
 
     if validate and not path.exists():
         raise S3GetError(res)
