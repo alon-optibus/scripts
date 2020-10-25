@@ -2,6 +2,7 @@ from pathlib import Path
 from functools import lru_cache
 from subprocess import PIPE
 from subprocess import Popen
+from typing import *
 
 
 ########################################################################################################################
@@ -29,7 +30,10 @@ termfmt_yb = termfmt(43)
 termfmt_grb = termfmt(100)
 
 
-def shell_process(cmd, cwd=None):
+def shell_process(
+        cmd: Union[str, Sequence[str]],
+        cwd: Optional[Path]=None,
+) -> Popen:
 
     if not isinstance(cmd, str):
         cmd = ' '.join(cmd)
@@ -37,11 +41,14 @@ def shell_process(cmd, cwd=None):
     return Popen(
         cmd,
         shell=True,
-        cwd=None if cwd is None else Path(cwd).resolve(strict=True),
+        cwd=None if cwd is None else cwd.resolve(strict=True),
         stdout=PIPE,
     )
 
-def shell_lines(cmd, cwd=None):
+def shell_lines(
+        cmd: Union[str, Sequence[str]],
+        cwd: Optional[Path]=None,
+) -> Iterator[str]:
     for line in shell_process(cmd=cmd, cwd=cwd).stdout:
         yield line.decode()[:-1]
 

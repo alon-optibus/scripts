@@ -1,8 +1,13 @@
 import os
 from collections import namedtuple
 from datetime import datetime
+from dataclasses import dataclass
+from pathlib import Path
+from typing import *
 
-from .bash_1 import shell_lines
+from my.utils.bash_1 import shell_lines
+
+ROOT_ARMADA = Path.home().joinpath("dev", "armada")
 
 # <editor-fold desc="utils for git-log">
 
@@ -103,7 +108,35 @@ def iter_git_log(
     pass
 
 
-def iter_git_branch_by_date(path=None, n=None, oldest=False):
+@dataclass(frozen=True)
+class BranchInfo:
+    name: str
+    author: str
+    date: datetime
+    local: bool
+    path: Path
+    root: Path
+
+    def delete_branch(self, *, force=False, verbose=True):
+
+        if self.local:
+            return delete_local_git_branch(
+                branch_name=self.name,
+                cwd=self.root,
+                force=force,
+                verbose=verbose,
+            )
+
+        raise NotImplementedError
+
+    pass
+
+
+def iter_git_branch_by_date(
+        path: Optional[Path]=None,
+        n: int=None,
+        oldest: bool=False,
+) -> Iterator[BranchInfo]:
 
     cmd_parts = [
         "git for-each-ref",
@@ -112,6 +145,8 @@ def iter_git_branch_by_date(path=None, n=None, oldest=False):
         "--format='%(committerdate:raw)|%(authorname)|%(refname:short)'",
     ]
 
+    root = Path.cwd() if path is None else path
+
     if n:
         cmd_parts.insert(1, f'--count={n}')
 
@@ -119,15 +154,24 @@ def iter_git_branch_by_date(path=None, n=None, oldest=False):
         raw_date, author, refname = line.split('|', 2)
         timestamp_str, _ = raw_date.split(' ', 1)
         date = datetime.fromtimestamp(int(timestamp_str))
-        yield date, author, refname
+
+        yield BranchInfo(
+            name=refname,
+            author=author,
+            date=date,
+            local=True,
+            path=root.joinpath('.git', 'refs', 'heads', refname),
+            root=root,
+        )
 
     pass
 
 
-def delete_git_branch(branch_name, cwd=None, force=False):
+def delete_local_git_branch(branch_name, *, cwd=None, force=False, verbose=True):
     return list(shell_lines([
         'git branch',
         '-D' if force else '-d',
+        '-v' if verbose else '',
         branch_name,
     ], cwd))
 
@@ -140,3 +184,10 @@ def get_user_name_from_git_config():
 
 
 ########################################################################################################################
+if __name__ == '__main__':
+
+    for b in iter_git_branch_by_date(
+        path=Path.home().joinpath("dev", "armada"),
+    ):
+        print(b.path, b.path.is_file())
+    pass

@@ -3,58 +3,71 @@ from fnmatch import fnmatch
 
 from my.utils.git_1 import get_user_name_from_git_config
 from my.utils.git_1 import iter_git_branch_by_date
+# <editor-fold desc="get args">
 
-########################################################################################################################
 
-parser = argparse.ArgumentParser(description='list git-branches sorted by last commit date.')
+def get_args():
 
-# <editor-fold desc="define arg: number of lines">
+    parser = argparse.ArgumentParser(description='list git-branches sorted by last commit date.')
 
-parser.add_argument(
-    '-n',
-    type=int,
-    nargs='?',
-    help='Number of branches to print. if no value is given, list all.',
-    default=10,
-)
+    # <editor-fold desc="define arg: number of lines">
+
+    parser.add_argument(
+        '-n',
+        type=int,
+        nargs='?',
+        help='Number of branches to print. if no value is given, list all.',
+        default=10,
+    )
+
+    # </editor-fold>
+    # <editor-fold desc="define arg: filter by author">
+
+    parser.add_argument(
+        '-a',
+        type=str,
+        nargs='?',
+        help='filter by author. if no value is given, consider user name from git config.',
+        default='*',
+        metavar='author',
+    )
+
+    # </editor-fold>
+
+    args = parser.parse_args()
+
+    if args.a is None:
+        args.a = get_user_name_from_git_config()
+
+    return args
+
 
 # </editor-fold>
-# <editor-fold desc="define arg: filter by author">
+# <editor-fold desc="main">
 
-parser.add_argument(
-    '-a',
-    type=str,
-    nargs='?',
-    help='filter by author. if no value is given, consider user name from git config.',
-    default='*',
-    metavar='author',
-)
+
+def main():
+
+    args = get_args()
+
+    if args.a == '*':
+        for branch in iter_git_branch_by_date(n=args.n):
+            print(branch.name)
+
+    else:
+
+        n = 0
+
+        for branch in iter_git_branch_by_date():
+
+            if fnmatch(branch.author, args.a):
+                print(branch.name)
+                n += 1
+
+                if args.n is not None and n >= args.n:
+                    break
+
 
 # </editor-fold>
-
-args = parser.parse_args()
-
-if args.a is None:
-    args.a = get_user_name_from_git_config()
-
-########################################################################################################################
-
-if args.a == '*':
-    for date, author, branch in iter_git_branch_by_date(n=args.n):
-        print(branch)
-
-else:
-
-    n = 0
-
-    for date, author, branch in iter_git_branch_by_date():
-
-        if fnmatch(author, args.a):
-            print(branch)
-            n += 1
-
-            if args.n is not None and n >= args.n:
-                break
-
-
-########################################################################################################################
+if __name__ == '__main__':
+    main()

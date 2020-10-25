@@ -1,5 +1,7 @@
+# <editor-fold desc="">
 import argparse
 from fnmatch import fnmatch
+from typing import *
 
 from my.utils.bash_1 import termfmt_cf
 from my.utils.bash_1 import termfmt_grb
@@ -8,85 +10,104 @@ from my.utils.git_1 import get_current_git_branch
 from my.utils.git_1 import get_user_name_from_git_config
 from my.utils.git_1 import iter_git_branch_by_date
 
-########################################################################################################################
+# </editor-fold>
+# <editor-fold desc="get args">
 
-parser = argparse.ArgumentParser(description='list git-branches sorted by last commit date.')
 
-# <editor-fold desc="define arg: number of lines">
+def get_args() -> argparse.Namespace:
 
-parser.add_argument(
-    '-n',
-    type=int,
-    nargs='?',
-    help='Number of branches to print. if no value is given, list all.',
-    default=10,
-)
+    parser = argparse.ArgumentParser(description='list git-branches sorted by last commit date.')
+
+    # <editor-fold desc="define arg: number of lines">
+
+    parser.add_argument(
+        '-n',
+        type=int,
+        nargs='?',
+        help='Number of branches to print. if no value is given, list all.',
+        default=10,
+    )
+
+    # </editor-fold>
+    # <editor-fold desc="define arg: filter by author">
+
+    parser.add_argument(
+        '-a',
+        type=str,
+        nargs='?',
+        help='filter by author. if no value is given, consider user name from git config.',
+        default='*',
+        metavar='author',
+    )
+
+    # </editor-fold>
+
+    args = parser.parse_args()
+
+    if args.a is None:
+        args.a = get_user_name_from_git_config()
+
+    return args
+
 
 # </editor-fold>
-# <editor-fold desc="define arg: filter by author">
-
-parser.add_argument(
-    '-a',
-    type=str,
-    nargs='?',
-    help='filter by author. if no value is given, consider user name from git config.',
-    default='*',
-    metavar='author',
-)
-
-# </editor-fold>
-
-args = parser.parse_args()
-
-if args.a is None:
-    args.a = get_user_name_from_git_config()
-
-########################################################################################################################
-
 # <editor-fold desc="select branches">
 
-if args.a == '*':
 
-    branches = list(iter_git_branch_by_date(n=args.n))
+def select_branches(args: argparse.Namespace):
 
-else:
+    if args.a == '*':
 
-    branches = []
+        branches = list(iter_git_branch_by_date(n=args.n))
 
-    for branch_data in iter_git_branch_by_date():
-        date, author, branch = branch_data
-        if fnmatch(author, args.a):
-            branches.append(branch_data)
+    else:
 
-            if args.n is not None and len(branches) >= args.n:
-                break
+        branches = []
+
+        for branch in iter_git_branch_by_date():
+            if fnmatch(branch.author, args.a):
+                branches.append(branch)
+
+                if args.n is not None and len(branches) >= args.n:
+                    break
+    return branches
+
+
+# </editor-fold>
+# <editor-fold desc="main">
+
+
+def main():
+
+    args: argparse.Namespace = get_args()
+
+    current_git_branch = get_current_git_branch()
+
+    branches = select_branches(args)
+
+    author_width = max(
+        len(branch.author)
+        for branch in branches
+    )
+
+    for i, branch in enumerate(branches):
+
+        var = f'b{i}'
+        msg = f'{branch.date} by {branch.author:{author_width}} : {var:>4} = {branch.name}'
+
+        if branch == current_git_branch:
+            msg = termfmt_grb(msg)
+
+        if branch in ['develop', 'hotfix', 'rc', 'master']:
+            msg = termfmt_cf(msg)
+
+        elif branch.name.startswith('jenkins-ignore-'):
+            msg = termfmt_pf(msg)
+
+        print(msg)
+
 
 # </editor-fold>
 
-current_git_branch = get_current_git_branch()
-
-author_width = max(
-    len(author)
-    for date, author, refname in branches
-)
-
-for i, (date, author, branch) in enumerate(branches):
-
-    branch: str
-
-    var = f'b{i}'
-    msg = f'{date} by {author:{author_width}} : {var:>4} = {branch}'
-
-    if branch == current_git_branch:
-        msg = termfmt_grb(msg)
-
-    if branch in ['develop', 'hotfix', 'rc', 'master']:
-        msg = termfmt_cf(msg)
-
-    elif branch.startswith('jenkins-ignore-'):
-        msg = termfmt_pf(msg)
-
-    print(msg)
-
-
-########################################################################################################################
+if __name__ == '__main__':
+    main()

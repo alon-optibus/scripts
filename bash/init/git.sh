@@ -116,7 +116,7 @@ list_modified(){
   then
     list_uncommited_files
   else
-    git diff --cached --name-only origin/$1
+    git diff --cached --name-only $1
     list_untracked_files
   fi
 }
