@@ -21,11 +21,9 @@ join = ''.join
 
 ME = 'alon'
 
-# last_date_my = now - 0.5 * YEAR
-last_date_my = now #- 1 * MONTH
+last_date_my = now
+last_date_myji = now - 0.5 * YEAR
 last_date_other = now - 2 * WEEK
-
-last_date = max(last_date_my, last_date_other)
 
 ROOT = ROOT_ARMADA
 
@@ -37,6 +35,21 @@ PROTECTED_NAMES = [
 
 PROTECTED_LABELS = [
     'OS-12637',  # vip--route-group-homogeneity
+    'OS-19298',  # trigger-lambda-for-ColGen
+    'fix-progress_scope',
+    'vip--test-progress-bar',
+    'OS-12637',  # vip--route-group-homogeneity
+]
+
+DEPRICATED_LABELS = [
+    # <editor-fold desc="old">
+    'vip--fix-progress_scope',
+    'OS-21269',  # vip--balanced-non-circular-depots
+    'OS-23415',  # st--add-create-schedule-input-to-colgen-input
+    'OS-23347',  # rebuild-the-s3-directory-structure-for-create-schedule-metrics-with-sub-directories
+    'OS-19784',  # write-done-in-the-ColGen-IO-directory
+    'OS-24429',  # refactor-colgen-runners
+    # </editor-fold>
 ]
 
 # <editor-fold desc="select branches">
@@ -47,8 +60,16 @@ def _select_branch(branch: BranchInfo) -> bool:
     if branch.name in PROTECTED_NAMES:
         return False
 
-    if branch.author == ME and branch.date > last_date_my:
-        return False
+    for label in DEPRICATED_LABELS:
+        if label in branch.name:
+            return True
+
+    if branch.author == ME:
+        if branch.name.startswith('jenkins-ignore'):
+            if branch.date > last_date_myji:
+                return False
+        elif branch.date > last_date_my:
+            return False
 
     elif branch.date > last_date_other:
         return False
