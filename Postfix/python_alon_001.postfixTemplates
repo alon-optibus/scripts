@@ -1,0 +1,2 @@
+.enum : Enumerate value
+    ANY   →   enumerate($expr$)
