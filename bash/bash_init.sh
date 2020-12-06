@@ -100,4 +100,6 @@ init_local
 # interrupt with 'ctrl+j' instead of 'ctrl+c':
 stty intr ^J
 
+source local_bash_init.sh
+
 ########################################################################################################################
