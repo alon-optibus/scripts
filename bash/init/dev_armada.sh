@@ -56,7 +56,7 @@ rename-ji(){
 
 
 jk(){
-  xdg-open "https://jenkins-ci.optibus.com/blue/organizations/jenkins/Armada%2FFeature%20branches%20-%20Push/activity/?branch=$(default-branch)"
+  chrome "https://jenkins-ci.optibus.com/blue/organizations/jenkins/Armada%2FFeature%20branches%20-%20Push/activity/?branch=$(default-branch)"
 }
 
 

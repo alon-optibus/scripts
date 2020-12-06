@@ -7,11 +7,11 @@ get_win_pid(){
 }
 
 get_win_class(){
-  xprop -id "$1" '\t$0' WM_CLASS | cut -f 2
+  xprop -id "$1" '\t$0' WM_CLASS | cut -f 2 | cut -d'"' -f 2
 }
 
 get_win_name(){
-  xprop -id "$1" '\t$0' _NET_WM_NAME | cut -f 2
+  xprop -id "$1" '\t$0' _NET_WM_NAME | cut -f 2 | cut -d'"' -f 2
 }
 
 ########################################################################################################################
