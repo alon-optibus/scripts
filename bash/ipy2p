@@ -6,7 +6,7 @@ set -a
 source "$LOCAL/env_euclid.env"
 set +a
 
-export PATH="$PYENV2V:$PATH"
+export PATH="$PYENV2P:$PATH"
 export PYTHONPATH="$PYTHONPATH:$PYPATH_EUCLID"
 
-$PY2V "$@"
+$PYENV2P/ipython -i "$@"

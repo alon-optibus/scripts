@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo scripts
+source "$SCRIPTS/bash/init/scripts.sh"

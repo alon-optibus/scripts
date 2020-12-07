@@ -2,10 +2,11 @@
 
 source local_paths.sh
 
-export PATH="$HOME/dev/envcp/bin:$PATH"
-export PYTHONPATH="$SCRIPTS/py2:$RESEARCH:$ROOT/euclid/sdk:$PYTHONPATH"
-export LD_LIBRARY_PATH=/usr/local/lib:/home/alon/dev/cplex128/bin/x86-64_linux
+set -a
+source "$LOCAL/env_euclid.env"
+set +a
 
-python "$@"
+export PATH="$PYENV2C:$PATH"
+export PYTHONPATH="$PYTHONPATH:$PYPATH_EUCLID"
 
-########################################################################################################################
+$PY2C "$@"

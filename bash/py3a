@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source local_paths.sh
+
+export PATH="$PYENV3A:$PATH"
+export PYTHONPATH="$PYTHONPATH:$PYPATH_LOCAL3"
+
+$PY3A "$@"

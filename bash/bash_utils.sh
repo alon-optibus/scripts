@@ -3,15 +3,7 @@
 ########################################################################################################################
 
 source local_bash_utils.sh
-# export HOME, ROOT, RESEARCH, SCRIPTS, DATA_DIR, WINDOWS_DIR
-
-export Downloads=~/Downloads
-
-export py2_scripts=$SCRIPTS/py2
-export py2_tools=$py3_scripts
-
-export py3_scripts=$SCRIPTS/py3
-export py3_tools=$py3_scripts/tools
+# export HOME, ROOT, RESEARCH, SCRIPTS, DATA_DIR, WINDOWS_DIR, Downloads, py2_scripts, py2_tools, py3_scripts, py3_tools
 
 ########################################################################################################################
 
@@ -106,13 +98,9 @@ unzip_remove(){
 
 alias zipr='py3 $SCRIPTS/py3/tools/zipr.py'
 
+
 arc(){
-	if [ -d "$1" ]
-	then zip -r "$ARCHIVE_DIR/$1_$(date +%Y-%m-%d_%H-%M).zip" "$1"
-	elif [ -f "$1" ]
-	then zip "$ARCHIVE_DIR/$1_$(date +%Y-%m-%d_%H-%M).zip" "$1"
-	else echo "$1" not found.
-	fi
+  7z a -t7z -mhe=on -p "$ARCHIVE_DIR/$1_$(date +%Y-%m-%d_%H-%M).7z" "$@"
 }
 
 
@@ -267,27 +255,27 @@ condau(){
   fi
 }
 
-alias pip2='py2 -m pip'
+alias pip2p='py2p -m pip'
 alias pip2c='py2c -m pip'
 alias pip2v='py2v -m pip'
-alias pip3='py3 -m pip'
+alias pip3a='py3a -m pip'
 
-alias pip2i='pip2 install'
+alias pip2pi='pip2p install'
 alias pip2ci='pip2c install'
 alias pip2vi='pip2v install'
-alias pip3i='pip3 install'
+alias pip3ai='pip3a install'
 
-alias pip2u='pip2 install -U'
+alias pip2pu='pip2p install -U'
 alias pip2cu='pip2c install -U'
 alias pip2vu='pip2v install -U'
-alias pip3u='pip3 install -U'
+alias pip3au='pip3a install -U'
 
-alias pip2r='pip2 install -r'
+alias pip2pr='pip2p install -r'
 alias pip2cr='pip2c install -r'
 alias pip2vr='pip2v install -r'
-alias pip3r='pip3 install -r'
+alias pip3ar='pip3a install -r'
 
-alias pipu='pip2u pip;pip2cu pip;pip2vu pip;pip3u pip;'
+alias pipu='pip2pu pip;pip2cu pip;pip2vu pip;pip3au pip;'
 
 ########################################################################################################################
 
