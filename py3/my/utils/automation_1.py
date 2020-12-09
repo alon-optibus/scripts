@@ -19,8 +19,6 @@ class WinInfo:
     pass
 
 
-
-
 def iter_all_windows():
     for line in shell_lines([WMCTRL, '-p', '-l']):
         wid, desktop, pid, client, title = line.split(maxsplit=4)
@@ -32,12 +30,14 @@ def iter_all_windows():
             client=client,
             title=title,
         )
+    pass
 
 
 def iter_real_windows():
     for winfo in iter_all_windows():
         if winfo.desktop >= 0:
             yield winfo
+    pass
 
 
 def test():

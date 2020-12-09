@@ -43,6 +43,7 @@ def shell_process(
         shell=True,
         cwd=None if cwd is None else cwd.resolve(strict=True),
         stdout=PIPE,
+        stdin=PIPE,
     )
 
 def shell_lines(
@@ -53,12 +54,29 @@ def shell_lines(
         yield line.decode()[:-1]
 
 
+def shell_read(
+        cmd: Union[str, Sequence[str]],
+        cwd: Optional[Path] = None,
+):
+    return shell_process(cmd=cmd, cwd=cwd).stdout.read()
+
+
+def clip_read():
+    return shell_read(['xclip', '-o'])
+
+
+def clip_lines():
+    return shell_lines(['xclip', '-o'])
+
+
 ########################################################################################################################
 if __name__ == '__main__':
 
-    for i in range(200):
-        print(f'{i}: ', termfmt(i)('wwwwwww'))
-        pass
+    print(clip_read())
+
+    # for i in range(200):
+    #     print(f'{i}: ', termfmt(i)('wwwwwww'))
+    #     pass
 
     pass
 ########################################################################################################################

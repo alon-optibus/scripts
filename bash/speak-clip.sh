@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-xclip -o | espeak -ven-us+f1 --stdin
+source local_paths.sh
+py3a "$py3_tools/speak_clip.py"
