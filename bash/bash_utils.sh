@@ -157,6 +157,8 @@ sagi(){
   apt-cache policy "$1"
 }
 
+alias sagu='sudo apt-get update'
+
 dpkg_find(){
   dpkg - l "$1" | grep ^ i
 }
