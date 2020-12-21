@@ -11,7 +11,7 @@ def set_redshift(event=None):
         x = int(1000 * float(v1.get()))
     except (ValueError, TypeError):
         return
-    os.system('redshift -O {}'.format(x))
+    os.system('redshift -x && redshift -O {}'.format(x))
 
 
 def increase(event):
