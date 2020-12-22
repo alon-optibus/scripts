@@ -96,6 +96,12 @@ unzip_remove(){
 
 ########################################################################################################################
 
+run(){
+  nohup exo-open "$@" &>/dev/null &
+}
+
+########################################################################################################################
+
 alias zipr='py3 $SCRIPTS/py3/tools/zipr.py'
 
 
@@ -257,27 +263,31 @@ condau(){
   fi
 }
 
+alias pip2l='py2l -m pip'
 alias pip2p='py2p -m pip'
 alias pip2c='py2c -m pip'
 alias pip2v='py2v -m pip'
 alias pip3a='py3a -m pip'
 
+alias pip2li='pip2l install'
 alias pip2pi='pip2p install'
 alias pip2ci='pip2c install'
 alias pip2vi='pip2v install'
 alias pip3ai='pip3a install'
 
+alias pip2lu='pip2l install -U'
 alias pip2pu='pip2p install -U'
 alias pip2cu='pip2c install -U'
 alias pip2vu='pip2v install -U'
 alias pip3au='pip3a install -U'
 
+alias pip2lr='pip2l install -r'
 alias pip2pr='pip2p install -r'
 alias pip2cr='pip2c install -r'
 alias pip2vr='pip2v install -r'
 alias pip3ar='pip3a install -r'
 
-alias pipu='pip2pu pip;pip2cu pip;pip2vu pip;pip3au pip;'
+alias pipu='pip2pu pip setuptools wheel;pip2cu pip setuptools wheel;pip2vu pip setuptools wheel;pip3au pip setuptools wheel;'
 
 ########################################################################################################################
 
