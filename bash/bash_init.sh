@@ -85,7 +85,7 @@ info_bash(){
 alias info='info_bash'
 alias am='display_info am'
 alias s3='display_info s3'
-alias pip='display_info pip'
+alias piph='display_info pip'
 
 ########################################################################################################################
 
