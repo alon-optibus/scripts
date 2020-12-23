@@ -2,6 +2,10 @@
 
 ########################################################################################################################
 
+export ROOT="/home/alon/dev/armada/"
+source ~/dev/venv/bin/activate
+source $ROOT/.bash_profile
+
 source $SCRIPTS/bash/armada_utils.sh
 source $SCRIPTS/bash/init/git.sh
 
@@ -58,7 +62,6 @@ rename-ji(){
 jk(){
   chrome "https://jenkins-ci.optibus.com/blue/organizations/jenkins/Armada%2FFeature%20branches%20-%20Push/activity/?branch=$(default-branch)"
 }
-
 
 ########################################################################################################################
 

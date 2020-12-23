@@ -2,9 +2,7 @@
 
 source local_paths.sh
 
-set -a
-source "$LOCAL/env_euclid.env"
-set +a
+set -a; source "$LOCAL/env_euclid.env"; set +a
 
 export PATH="$PYENV2C:$PATH"
 export PYTHONPATH="$PYTHONPATH:$PYPATH_EUCLID"

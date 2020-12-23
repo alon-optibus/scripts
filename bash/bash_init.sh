@@ -24,7 +24,7 @@ init_local(){
 
 cdi(){
   cd "$1" || return
-  init
+  init_local
 }
 
 alias r='cdi $RESEARCH'

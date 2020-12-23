@@ -94,6 +94,9 @@ unzip_remove(){
   path_remove "$1"
 }
 
+alias imut='sudo chattr +i'
+alias mut='sudo chattr -i'
+
 ########################################################################################################################
 
 run(){
@@ -288,6 +291,10 @@ alias pip2vr='pip2v install -r'
 alias pip3ar='pip3a install -r'
 
 alias pipu='pip2pu pip setuptools wheel;pip2cu pip setuptools wheel;pip2vu pip setuptools wheel;pip3au pip setuptools wheel;'
+
+########################################################################################################################
+
+alias env_euclid='set -a; source "$LOCAL/env_euclid.env"; set +a'
 
 ########################################################################################################################
 
